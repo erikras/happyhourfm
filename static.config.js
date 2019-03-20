@@ -3,6 +3,7 @@ import path from 'path'
 import { mkDir, mkFile } from './fs'
 const fs = require('fs')
 import { buildFeed, grabContents } from 'podcats'
+import console = require('console');
 
 /// config
 const myURL = 'https://happyhour.fm'
@@ -76,7 +77,9 @@ export default {
       feedOptions,
       iTunesChannelFields,
     )
-    mkFile('/public/rss/index.xml', feed.rss2())
+    console.info('Making rss/index.xml')
+    mkFile('/public/rss.xml', feed.rss2())
+    console.info('Made rss/index.xml')
     return {
       title: 'Happy Hour with Dennis and Erik',
       description,
