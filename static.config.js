@@ -57,7 +57,6 @@ const filepaths = filenames.map(file =>
 )
 const contents = grabContents(filepaths, myURL)
 const frontmatters = contents.map(c => c.frontmatter)
-mkDir('/public/rss/')
 
 // generate HTML
 export default {
@@ -76,9 +75,9 @@ export default {
       feedOptions,
       iTunesChannelFields,
     )
-    console.info('Making rss/index.xml')
-    mkFile('/public/rss.xml', feed.rss2())
-    console.info('Made rss/index.xml')
+    console.info('Making dist/rss.xml')
+    mkFile('/dist/rss.xml', feed.rss2())
+    console.info('Made dist/rss.xml')
     return {
       title: 'Happy Hour with Dennis and Erik',
       description,
