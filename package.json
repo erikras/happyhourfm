@@ -22,8 +22,6 @@
     "markdown-it": "^8.4.2",
     "podcats": "^0.1.8",
     "qs": "^6.6.0",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
     "react-helmet": "^5.2.0",
     "react-hot-loader": "^4.3.12",
     "react-icons": "^3.3.0",
@@ -37,7 +35,7 @@
   "devDependencies": {
     "@types/node": "^11.11.4",
     "@types/reach__router": "^1.2.2",
-    "@types/react": "^16.7.18",
+    "@types/react": "^16.8.8",
     "@types/react-dom": "^16.8.3",
     "@types/react-hot-loader": "^4.1.0",
     "@types/webpack-env": "^1.13.6",
@@ -53,8 +51,8 @@
     "trailingComma": "all"
   },
   "resolutions": {
-    "react": "16.8.0-alpha.1",
-    "react-dom": "16.8.0-alpha.1"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   },
   "version": "1.0.0",
   "description": "make your podcast feed AND host it on a React site at the same time",
