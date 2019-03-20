@@ -3,7 +3,6 @@ import path from 'path'
 import { mkDir, mkFile } from './fs'
 const fs = require('fs')
 import { buildFeed, grabContents } from 'podcats'
-import console = require('console');
 
 /// config
 const myURL = 'https://happyhour.fm'
