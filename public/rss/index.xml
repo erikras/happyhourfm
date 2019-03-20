@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:cc="http://web.resource.org/cc/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:media="http://search.yahoo.com/mrss/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <channel>
+        <title>Happy Hour with Dennis and Erik</title>
+        <link>https://happyhour.fm</link>
+        <language>en</language>
+        <description>a candid and open weekly discussion between Dennis and Erik over drinks</description>
+        <managingEditor>happyhourdotfm@gmail.com (happyhourdotfm@gmail.com)</managingEditor>
+        <pubDate>Wed, 20 Mar 2019 17:20:14 GMT</pubDate>
+        <lastBuildDate>Wed, 20 Mar 2019 17:20:14 GMT</lastBuildDate>
+        <docs>https://happyhour.fm</docs>
+        <generator>https://github.com/sw-yx/react-static-typescript-starter</generator>
+        <itunes:summary>Happy Hour with Dennis and Erik</itunes:summary>
+        <itunes:author>Erik Rasmussen and Dennis Schrantz</itunes:author>
+        <itunes:keywords>Comedy</itunes:keywords>
+        <itunes:category text="Comedy"/>
+        <itunes:category text="News &amp; Politics"/>
+        <itunes:category text="Society &amp; Culture">
+            <itunes:category text="Philosophy"/>
+        </itunes:category>
+        <itunes:category text="Society &amp; Culture">
+            <itunes:category text="Places &amp; Travel"/>
+        </itunes:category>
+        <itunes:category text="Sports &amp; Recreation">
+            <itunes:category text="TV &amp; Film"/>
+        </itunes:category>
+        <itunes:image href="https://happyhour.fm/art.jpg"/>
+        <itunes:explicit>yes</itunes:explicit>
+        <itunes:owner>
+            <itunes:name><![CDATA[Erik Rasmussen and Dennis Schrantz]]></itunes:name>
+            <itunes:email>happyhourdotfm@gmail.com</itunes:email>
+        </itunes:owner>
+        <itunes:type>episodic</itunes:type>
+        <copyright>Copyright – Erik Rasmussen and Dennis Schrantz</copyright>
+        <atom:link href="https://happyhour.fm/atom.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Ep. 1 - A Room Full of Spider Monkeys]]></title>
+            <link><![CDATA[https://happyhour.fm/media/001.mp3]]></link>
+            <guid>https://happyhour.fm/media/001.mp3</guid>
+            <pubDate>Wed, 20 Mar 2019 00:00:00 GMT</pubDate>
+            <description><![CDATA[<h2>Links</h2>
+<ul>
+<li><a href="http://annivorystudios.homestead.com">Ann Ivory Studios</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Ecce_Homo_(Mart%C3%ADnez_and_Gim%C3%A9nez,_Borja)">Jesus Fresco Restoration</a> (Wikipedia)</li>
+<li>Life of Brian Debate, <a href="https://www.youtube.com/watch?v=1ni559bHXDg">Part 1</a>, <a href="https://www.youtube.com/watch?v=Ku3GcPrW9xg">Part 2</a>, <a href="https://www.youtube.com/watch?v=SGI9UevrzGc">Part 3</a>, <a href="https://www.youtube.com/watch?v=NXmJHlqMvvE">Part 4</a> (YouTube)</li>
+<li><a href="https://en.wikipedia.org/wiki/Corpsing">Corpsing</a> (Wikipedia)</li>
+<li><a href="https://www.youtube.com/watch?v=VKHFZBUTA4k">The Four Yorkshiremen</a>, Monty Python Sketch (YouTube)</li>
+<li><a href="https://en.wikipedia.org/wiki/First_Council_of_Nicaea">First</a> and <a href="https://en.wikipedia.org/wiki/Second_Council_of_Nicaea">Second</a> Councils of Nicaea (Wikipedia)</li>
+<li><a href="https://www.youtube.com/watch?v=-a0FcNL7A3o">Moonstruck Scene</a> (YouTube)</li>
+</ul>
+]]></description>
+            <content:encoded><![CDATA[<h2>Links</h2>
+<ul>
+<li><a href="http://annivorystudios.homestead.com">Ann Ivory Studios</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Ecce_Homo_(Mart%C3%ADnez_and_Gim%C3%A9nez,_Borja)">Jesus Fresco Restoration</a> (Wikipedia)</li>
+<li>Life of Brian Debate, <a href="https://www.youtube.com/watch?v=1ni559bHXDg">Part 1</a>, <a href="https://www.youtube.com/watch?v=Ku3GcPrW9xg">Part 2</a>, <a href="https://www.youtube.com/watch?v=SGI9UevrzGc">Part 3</a>, <a href="https://www.youtube.com/watch?v=NXmJHlqMvvE">Part 4</a> (YouTube)</li>
+<li><a href="https://en.wikipedia.org/wiki/Corpsing">Corpsing</a> (Wikipedia)</li>
+<li><a href="https://www.youtube.com/watch?v=VKHFZBUTA4k">The Four Yorkshiremen</a>, Monty Python Sketch (YouTube)</li>
+<li><a href="https://en.wikipedia.org/wiki/First_Council_of_Nicaea">First</a> and <a href="https://en.wikipedia.org/wiki/Second_Council_of_Nicaea">Second</a> Councils of Nicaea (Wikipedia)</li>
+<li><a href="https://www.youtube.com/watch?v=-a0FcNL7A3o">Moonstruck Scene</a> (YouTube)</li>
+</ul>
+]]></content:encoded>
+            <author>happyhourdotfm@gmail.com (Erik Rasmussen and Dennis Schrantz)</author>
+            <enclosure length="33959478" type="audio/mpeg" url="https://happyhour.fm/media/001.mp3"/>
+            <itunes:duration>35:10</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:subtitle><![CDATA[Our hosts discuss religious art, Monty Python, Jesus' comedian twin brother, and mothers-in-law.]]></itunes:subtitle>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:episode>1</itunes:episode>
+        </item>
+    </channel>
+</rss>
