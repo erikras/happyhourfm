@@ -27,7 +27,8 @@ type Props = {
 }
 export default withSiteData(
   withRouteData(({ content: episode, myURL, image }: Props) => {
-    return (
+    console.info('WTF epsiode', episode)
+    return episode ? (
       <Box gap="medium">
         <Header
           siteData={{
@@ -61,6 +62,6 @@ export default withSiteData(
         </Box>
         <Footer />
       </Box>
-    )
+    ) : null
   }),
 )

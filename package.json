@@ -3,8 +3,7 @@
   "private": true,
   "scripts": {
     "start": "react-static start",
-    "build": "yarn run build:stylus && react-static build",
-    "build:stylus": "stylus src/components/player.styl --out src/components"
+    "build": "yarn run react-static build"
   },
   "dependencies": {
     "@cassette/core": "^2.0.0-alpha.30",
