@@ -1,0 +1,104 @@
+{
+  "entry": "/Users/erik/Podcasting/Happy Hour/website/src/index.tsx",
+  "prefetchRate": 5,
+  "maxThreads": null,
+  "disableRoutePrefixing": false,
+  "outputFileRate": 100,
+  "extensions": [
+    ".js",
+    ".jsx",
+    ".ts",
+    ".tsx"
+  ],
+  "minLoadTime": 200,
+  "disablePreload": false,
+  "disableRuntime": false,
+  "preloadPollInterval": 300,
+  "plugins": [
+    {
+      "location": "/Users/erik/Podcasting/Happy Hour/website/node_modules/react-static-plugin-styled-components",
+      "nodeLocation": "/Users/erik/Podcasting/Happy Hour/website/node_modules/react-static-plugin-styled-components/node.api.js",
+      "options": {},
+      "hooks": {}
+    },
+    {
+      "location": "/Users/erik/Podcasting/Happy Hour/website/node_modules/react-static-plugin-typescript",
+      "nodeLocation": "/Users/erik/Podcasting/Happy Hour/website/node_modules/react-static-plugin-typescript/node.api.js",
+      "options": {},
+      "hooks": {}
+    },
+    {
+      "location": "/Users/erik/Podcasting/Happy Hour/website",
+      "nodeLocation": "/Users/erik/Podcasting/Happy Hour/website/node.api.js",
+      "options": {},
+      "hooks": {}
+    }
+  ],
+  "siteRoot": "https://happyhour.fm",
+  "paths": {
+    "ROOT": "/Users/erik/Podcasting/Happy Hour/website",
+    "LOCAL_NODE_MODULES": "/Users/erik/Podcasting/Happy Hour/website/node_modules/react-static/node_modules",
+    "SRC": "/Users/erik/Podcasting/Happy Hour/website/src",
+    "PAGES": "/Users/erik/Podcasting/Happy Hour/website/src/pages",
+    "DIST": "/Users/erik/Podcasting/Happy Hour/website/dist",
+    "ASSETS": "/Users/erik/Podcasting/Happy Hour/website/dist",
+    "PLUGINS": "/Users/erik/Podcasting/Happy Hour/website/plugins",
+    "TEMP": "/Users/erik/Podcasting/Happy Hour/website/tmp",
+    "BUILD_ARTIFACTS": "/Users/erik/Podcasting/Happy Hour/website/artifacts",
+    "PUBLIC": "/Users/erik/Podcasting/Happy Hour/website/public",
+    "NODE_MODULES": "/Users/erik/Podcasting/Happy Hour/website/node_modules",
+    "EXCLUDE_MODULES": "/Users/erik/Podcasting/Happy Hour/website/node_modules",
+    "PACKAGE": "/Users/erik/Podcasting/Happy Hour/website/package.json",
+    "HTML_TEMPLATE": "/Users/erik/Podcasting/Happy Hour/website/dist/index.html",
+    "STATIC_DATA": "/Users/erik/Podcasting/Happy Hour/website/dist/staticData"
+  },
+  "babelExcludes": [],
+  "basePath": "",
+  "publicPath": "https://happyhour.fm/",
+  "assetsPath": "",
+  "extractCssChunks": false,
+  "inlineCss": false,
+  "routes": [
+    {
+      "path": "404",
+      "component": "src/pages/404.tsx",
+      "isPage": true,
+      "originalPath": "404",
+      "hasGetProps": false,
+      "fromConfig": false,
+      "template": "../src/pages/404.tsx"
+    },
+    {
+      "path": "episode",
+      "component": "src/pages/episode.tsx",
+      "isPage": true,
+      "originalPath": "episode",
+      "hasGetProps": false,
+      "fromConfig": false,
+      "template": "../src/pages/episode.tsx"
+    },
+    {
+      "path": "/",
+      "component": "src/pages/index.tsx",
+      "isPage": true,
+      "originalPath": "/",
+      "hasGetProps": true,
+      "fromConfig": true,
+      "template": "../src/pages/index.tsx"
+    },
+    {
+      "path": "001",
+      "component": "src/pages/episode",
+      "originalPath": "001",
+      "hasGetProps": true,
+      "fromConfig": true,
+      "template": "../src/pages/episode"
+    }
+  ],
+  "templates": [
+    "../src/pages/404.tsx",
+    "../src/pages/episode.tsx",
+    "../src/pages/index.tsx",
+    "../src/pages/episode"
+  ]
+}

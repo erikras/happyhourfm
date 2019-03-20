@@ -33,7 +33,7 @@ export default withSiteData(
           siteData={{
             title: episode.frontmatter.title,
             description: episode.frontmatter.description,
-            myURL: `${myURL}/episode/${episode.frontmatter.slug}`,
+            myURL: `${myURL}/${episode.frontmatter.slug}`,
             image: episode.frontmatter.art || image,
           }}
         />

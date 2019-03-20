@@ -91,7 +91,7 @@ export default {
   getRoutes: async () => {
     return [
       {
-        path: '/episode',
+        path: '/',
         getData: () => ({
           contents,
         }),

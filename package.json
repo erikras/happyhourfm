@@ -34,7 +34,7 @@
     "xml": "^1.0.1"
   },
   "devDependencies": {
-    "@types/node": "^10.12.18",
+    "@types/node": "^11.11.4",
     "@types/reach__router": "^1.2.2",
     "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",

@@ -39,15 +39,13 @@ export default function ShowList({ frontmatters }: Props) {
       {props => {
         let activeEpisodeSlug = frontmatters[0].slug
         if (props.location.pathname !== '/') {
-          activeEpisodeSlug = props.location.pathname
-            .split('/episode/')
-            .slice(-1)[0] // just grab the slug at the end. pretty brittle but ok
+          activeEpisodeSlug = props.location.pathname.split('/').slice(-1)[0] // just grab the slug at the end. pretty brittle but ok
         }
         console.log('propslocation', props.location.pathname)
         return (
           <Box>
             {frontmatters.map(fm => (
-              <Episode href={`episode/${fm.slug}`}>
+              <Episode href={fm.slug}>
                 <Box
                   key={fm.slug}
                   margin="small"
