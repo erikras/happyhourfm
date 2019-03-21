@@ -10,11 +10,13 @@ const Player = ({ episode }: Props) => (
     <MediaPlayer
       playlist={[
         {
-          url: `/${episode.frontmatter.mp3URL}`,
+          url: `https://dts.podtrac.com/redirect.mp3/happyhour.fm/media/${
+            episode.frontmatter.slug
+          }.mp3`,
           title: episode.frontmatter.title,
         },
       ]}
-      controls={['playpause', 'volume', 'spacer', 'progress']}
+      controls={['playpause', 'spacer', 'progress']}
       style={{ width: '100%' }}
     />
   </Container>

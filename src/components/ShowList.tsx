@@ -20,6 +20,8 @@ const Episode = styled(Anchor)`
   text-decoration: none;
   &:hover {
     text-decoration: none;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
   }
   color: black;
   display: block;
@@ -27,8 +29,16 @@ const Episode = styled(Anchor)`
 
 const EpisodeArt = styled(Box)`
   opacity: 0.8;
+  position: relative;
+  transition: top 100ms ease-in-out, left 100ms ease-in-out;
   &:hover {
     opacity: 0.9;
+    top: -1px;
+    left: -1px;
+    &:active {
+      top: 0;
+      left: 0;
+    }
   }
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 `

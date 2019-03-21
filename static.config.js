@@ -27,8 +27,8 @@ const feedOptions = {
   copyright: 'Copyright – Erik Rasmussen and Dennis Schrantz',
   podtrac: true,
   feedLinks: {
-    atom: safeJoin(myURL, 'atom.xml'),
-    json: safeJoin(myURL, 'feed.json'),
+    // atom: safeJoin(myURL, 'atom.xml'),
+    // json: safeJoin(myURL, 'feed.json'),
     rss: safeJoin(myURL, 'rss.xml'),
   },
   author,
@@ -69,7 +69,6 @@ export default {
   siteRoot: myURL,
   getSiteData: async () => {
     // generate RSS
-    console.info('dog', feedOptions)
     let feed = await buildFeed(
       contents,
       myURL,

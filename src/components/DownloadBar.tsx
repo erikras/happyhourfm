@@ -48,7 +48,12 @@ export const DownloadBar: React.FC<DownloadBarProps> = ({
       flex="grow"
     >
       <Paragraph>
-        <Anchor download="" href={`/${frontmatter.mp3URL}`}>
+        <Anchor
+          download=""
+          href={`https://dts.podtrac.com/redirect.mp3/happyhour.fm/media/${
+            frontmatter.slug
+          }.mp3`}
+        >
           <Download alignmentBaseline="middle" /> Download Episode
         </Anchor>
       </Paragraph>

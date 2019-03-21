@@ -14,7 +14,6 @@ export type FMType = {
   date: string
   art: string
   description: string
-  simplecast: string
   episodeType?: 'full' | 'trailer' | 'bonus'
   episode?: number
   season?: number
