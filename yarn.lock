@@ -5543,9 +5543,9 @@ pluralize@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
 
-podcats@^0.1.8:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/podcats/-/podcats-0.1.8.tgz#f927a69029ef94d209119e702a025a8052399cd3"
+podcats@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/podcats/-/podcats-0.1.9.tgz#4185f4998e741a31ab30157d25493e8854339cd8"
 
 polished@^2.2.0:
   version "2.3.3"
@@ -6097,7 +6097,7 @@ react-dev-utils@^6.1.1:
     strip-ansi "4.0.0"
     text-table "0.2.0"
 
-react-dom@^16.8.1, react-dom@^16.8.4:
+react-dom@^16.8.1:
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.4.tgz#1061a8e01a2b3b0c8160037441c3bf00a0e3bc48"
   dependencies:
@@ -6254,7 +6254,7 @@ react-universal-component@^3.0.2:
     hoist-non-react-statics "^2.2.1"
     prop-types "^15.5.10"
 
-react@^16.8.1, react@^16.8.4:
+react@^16.8.1:
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.4.tgz#fdf7bd9ae53f03a9c4cd1a371432c206be1c4768"
   dependencies:

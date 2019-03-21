@@ -20,7 +20,7 @@
     "grommet-icons": "^4.2.0",
     "lodash": "^4.17.11",
     "markdown-it": "^8.4.2",
-    "podcats": "^0.1.8",
+    "podcats": "^0.1.9",
     "qs": "^6.6.0",
     "react-helmet": "^5.2.0",
     "react-hot-loader": "^4.3.12",

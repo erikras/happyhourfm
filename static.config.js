@@ -11,7 +11,7 @@ const description =
   'a candid and open weekly discussion between Dennis and Erik over drinks'
 const image = 'https://happyhour.fm/art.jpg' // TODO: itunes cover and opengraph image. you should customise this!
 const ghURL = 'https://github.com/erikras/happyhourfm'
-const rss = myURL + '/rss/index.xml'
+const rss = myURL + '/rss.xml'
 const contentFolder = 'content'
 const author = {
   name: 'Erik Rasmussen and Dennis Schrantz',
@@ -25,10 +25,11 @@ const feedOptions = {
   link: myURL,
   id: myURL,
   copyright: 'Copyright – Erik Rasmussen and Dennis Schrantz',
+  podtrac: true,
   feedLinks: {
     atom: safeJoin(myURL, 'atom.xml'),
     json: safeJoin(myURL, 'feed.json'),
-    rss: safeJoin(myURL, 'rss'),
+    rss: safeJoin(myURL, 'rss.xml'),
   },
   author,
 }
@@ -68,6 +69,7 @@ export default {
   siteRoot: myURL,
   getSiteData: async () => {
     // generate RSS
+    console.info('dog', feedOptions)
     let feed = await buildFeed(
       contents,
       myURL,
@@ -75,9 +77,7 @@ export default {
       feedOptions,
       iTunesChannelFields,
     )
-    console.info('Making dist/rss.xml')
-    mkFile('/dist/rss.xml', feed.rss2())
-    console.info('Made dist/rss.xml')
+    mkFile('/public/rss.xml', feed.rss2())
     return {
       title: 'Happy Hour with Dennis and Erik',
       description,
