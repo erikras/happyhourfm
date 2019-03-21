@@ -26,41 +26,49 @@ type Props = {
   image: string
 }
 export default withSiteData(
-  withRouteData(({ content: episode, myURL, image }: Props) => {
-    return episode ? (
-      <Box gap="medium">
-        <Header
-          siteData={{
-            title: episode.frontmatter.title,
-            description: episode.frontmatter.description,
-            myURL: `${myURL}/${episode.frontmatter.slug}`,
-            image: episode.frontmatter.art || image,
-          }}
-        />
+  withRouteData(
+    ({ content: episode, myURL, image, title, description }: Props) => {
+      return episode ? (
+        <Box gap="medium">
+          <Header
+            content={episode}
+            siteData={{
+              title,
+              description,
+              myURL: `${myURL}/${episode.frontmatter.slug}`,
+              image: `${myURL}/${episode.frontmatter.art}` || image,
+            }}
+          />
 
-        <Box direction="row-responsive" wrap flex="grow">
-          <Listen />
-          <Box align="center" flex gap="xsmall" pad={{ horizontal: 'medium' }}>
-            <DownloadBar />
-            <Player episode={episode} />
+          <Box direction="row-responsive" wrap flex="grow">
+            <Listen />
             <Box
-              elevation="large"
-              width="300px"
-              height="300px"
-              flex="grow"
-              margin={{ top: 'medium' }}
+              align="center"
+              flex
+              gap="xsmall"
+              pad={{ horizontal: 'medium' }}
             >
-              <Image
-                src={`/${episode.frontmatter.art}`}
-                alt="Episode Art"
-                fit="contain"
-              />
+              <DownloadBar />
+              <Player episode={episode} />
+              <Box
+                elevation="large"
+                width="300px"
+                height="300px"
+                flex="grow"
+                margin={{ top: 'medium' }}
+              >
+                <Image
+                  src={`/${episode.frontmatter.art}`}
+                  alt="Episode Art"
+                  fit="contain"
+                />
+              </Box>
+              <ShowNotes />
             </Box>
-            <ShowNotes />
           </Box>
+          <Footer />
         </Box>
-        <Footer />
-      </Box>
-    ) : null
-  }),
+      ) : null
+    },
+  ),
 )

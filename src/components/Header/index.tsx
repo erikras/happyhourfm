@@ -28,9 +28,7 @@ const Art = styled(Image).attrs({ src: '/art300.jpg', width: 300 })``
 function Header({ siteData, content }: { siteData: SiteData } & Props) {
   const { title, description, myURL, image } = siteData
   const titleHead =
-    content && content.frontmatter.episode
-      ? `Ep ${content.frontmatter.episode}: ${content.frontmatter.title}`
-      : title
+    content && content.frontmatter.episode ? content.frontmatter.title : title
   const desc = content ? content.frontmatter.description : description
   return (
     <Box tag="header" direction="row-responsive" wrap flex="grow">
@@ -42,7 +40,7 @@ function Header({ siteData, content }: { siteData: SiteData } & Props) {
         <meta property="og:description" content={desc} />
         <meta property="og:image" content={image} />
         <meta property="og:url" content={myURL} />
-        <meta property="og:site_name" content={titleHead} />
+        <meta property="og:site_name" content={title} />
         <meta name="twitter:title" content={titleHead} />
         <meta name="twitter:description" content={desc} />
         <meta name="twitter:image" content={image} />

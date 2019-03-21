@@ -9,7 +9,7 @@ function Listen(props: ListenProps) {
   return (
     <Box width="300px" gap="xsmall">
       {links.map(link => (
-        <ListenLink {...link} />
+        <ListenLink key={link.text} {...link} />
       ))}
     </Box>
   )
