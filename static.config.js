@@ -76,7 +76,7 @@ export default {
       feedOptions,
       iTunesChannelFields,
     )
-    mkFile('/public/rss.xml', feed.rss2())
+    mkFile('/dist/rss.xml', feed.rss2())
     return {
       title: 'Happy Hour with Dennis and Erik',
       description,
