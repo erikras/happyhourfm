@@ -25,11 +25,10 @@ export default withRouteData(({ content, episode }: Props) => {
   const ep = episode || content
   console.info({ episode, content })
   if (!ep || !ep.body) return 'no content'
+  console.info('BODY:', ep.body)
   return (
     <Box fill>
-      <Paragraph>
-        <span dangerouslySetInnerHTML={{ __html: ep.body }} />
-      </Paragraph>
+      <Paragraph dangerouslySetInnerHTML={{ __html: ep.body }} />
     </Box>
   )
 })

@@ -63,7 +63,7 @@ export default withSiteData(
                   fit="contain"
                 />
               </Box>
-              <ShowNotes />
+              <ShowNotes episode={episode} />
             </Box>
           </Box>
           <Footer />
