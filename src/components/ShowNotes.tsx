@@ -26,7 +26,6 @@ export default withRouteData(({ content, episode }: Props) => {
   if (!ep || !ep.body) return 'no content'
   return (
     <Box fill>
-      <pre>{JSON.stringify(ep, undefined, 2)}</pre>
       <Paragraph key={ep.frontmatter.slug}>
         <div dangerouslySetInnerHTML={{ __html: ep.body }} />
       </Paragraph>
