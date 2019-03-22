@@ -3,6 +3,7 @@ import { Box, Heading, Paragraph } from 'grommet'
 import { Episode } from '../types'
 import { withRouteData } from 'react-static'
 import styled from 'styled-components'
+import console = require('console')
 const Container = styled('div')`
   width: 62%;
   font-size: 1.25rem;
@@ -22,6 +23,7 @@ const Container = styled('div')`
 type Props = { content?: Episode; episode?: Episode }
 export default withRouteData(({ content, episode }: Props) => {
   const ep = episode || content
+  console.info({ episode, content })
   if (!ep) return 'no content'
   return (
     <Box fill>
