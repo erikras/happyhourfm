@@ -65,6 +65,7 @@ export default withSiteData(
                 />
               </Box>
               <ShowNotes episode={episode} />
+              <pre>{JSON.stringify(episode, undefined, 2)}</pre>
             </Box>
           </Box>
           <Footer />
