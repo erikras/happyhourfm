@@ -38,8 +38,6 @@ export const DownloadBar: React.FC<DownloadBarProps> = ({
   content: { frontmatter },
   ghURL,
 }) => {
-  //   const [Bool, setBool] = React.useState(true)
-  //   React.useEffect(() => {}, [])
   return (
     <Box
       direction="row-responsive"
