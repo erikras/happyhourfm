@@ -55,7 +55,9 @@ export const DownloadBar: React.FC<DownloadBarProps> = ({
           <Download alignmentBaseline="middle" /> Download Episode
         </Anchor>
       </Paragraph>
-      <Paragraph>{new Date(frontmatter.date).toLocaleDateString()}</Paragraph>
+      <Paragraph style={{ lineHeight: '30px' }}>
+        {new Date(frontmatter.date).toLocaleDateString()}
+      </Paragraph>
       <Paragraph>
         <Anchor
           href={`${ghURL}/edit/master/content/${frontmatter.slug}.md`}

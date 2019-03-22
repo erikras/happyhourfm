@@ -15,7 +15,7 @@ function Footer(props: any) {
           <Anchor
             margin="medium"
             icon={<Mail size="large" />}
-            href="mailto:happyhourdotfm@gmail.com"
+            href="mailto:happyhourdotfm@gmail.com?subject=Sponsorship"
             label="Become a Sponsor"
           />
         </Heading>
