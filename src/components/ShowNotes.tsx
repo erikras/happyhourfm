@@ -24,7 +24,7 @@ type Props = { content?: Episode; episode?: Episode }
 export default withRouteData(({ content, episode }: Props) => {
   const ep = episode || content
   console.info({ episode, content })
-  if (!ep) return 'no content'
+  if (!ep || !ep.body) return 'no content'
   return (
     <Box fill>
       <Paragraph>
