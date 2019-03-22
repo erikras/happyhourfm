@@ -27,7 +27,9 @@ export default withRouteData(({ content, episode }: Props) => {
   if (!ep) return 'no content'
   return (
     <Box fill>
-      <Paragraph dangerouslySetInnerHTML={{ __html: ep.body }} />
+      <Paragraph>
+        <span dangerouslySetInnerHTML={{ __html: ep.body }} />
+      </Paragraph>
     </Box>
   )
 })
