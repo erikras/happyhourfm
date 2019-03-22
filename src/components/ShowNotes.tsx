@@ -28,7 +28,7 @@ export default withRouteData(({ content, episode }: Props) => {
     <Box fill>
       <pre>{JSON.stringify(ep, undefined, 2)}</pre>
       <Paragraph key={ep.frontmatter.slug}>
-        <span dangerouslySetInnerHTML={{ __html: ep.body }} />
+        <div dangerouslySetInnerHTML={{ __html: ep.body }} />
       </Paragraph>
     </Box>
   )
