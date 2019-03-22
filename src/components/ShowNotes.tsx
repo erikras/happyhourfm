@@ -3,7 +3,7 @@ import { Box, Heading, Paragraph } from 'grommet'
 import { Episode } from '../types'
 import { withRouteData } from 'react-static'
 import styled from 'styled-components'
-import console = require('console')
+
 const Container = styled('div')`
   width: 62%;
   font-size: 1.25rem;
