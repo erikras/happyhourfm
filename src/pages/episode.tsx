@@ -28,7 +28,6 @@ type Props = {
 export default withSiteData(
   withRouteData(
     ({ content: episode, myURL, image, title, description }: Props) => {
-      console.info('episode', episode)
       return episode ? (
         <Box gap="medium">
           <Header
@@ -65,7 +64,6 @@ export default withSiteData(
                 />
               </Box>
               <ShowNotes episode={episode} />
-              <pre>{JSON.stringify(episode, undefined, 2)}</pre>
             </Box>
           </Box>
           <Footer />

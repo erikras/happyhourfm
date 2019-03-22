@@ -23,11 +23,10 @@ const Container = styled('div')`
 type Props = { content?: Episode; episode?: Episode }
 export default withRouteData(({ content, episode }: Props) => {
   const ep = episode || content
-  console.info({ episode, content })
   if (!ep || !ep.body) return 'no content'
-  console.info('BODY:', ep.body)
   return (
     <Box fill>
+      <pre>{JSON.stringify(ep, undefined, 2)}</pre>
       <Paragraph dangerouslySetInnerHTML={{ __html: ep.body }} />
     </Box>
   )
