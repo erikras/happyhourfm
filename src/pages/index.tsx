@@ -29,7 +29,7 @@ export default withSiteData(
             image,
           }}
         />
-        <Box direction="row" responsive wrap flex="grow">
+        <Box direction="row-responsive" wrap flex="grow">
           <Listen />
           <Box align="center" flex gap="xsmall" pad={{ horizontal: 'medium' }}>
             <Box flex>
