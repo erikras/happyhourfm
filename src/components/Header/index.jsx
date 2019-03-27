@@ -20,6 +20,15 @@ function Header({ siteData, content }) {
       <Helmet>
         <meta charSet="utf-8"/>
         <title>{titleHead}</title>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137049034-1"/>
+        <script dangerouslySetInnerHTML={{
+        __html: `
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-137049034-1');
+`,
+    }}/>
         <meta property="og:type" content="article"/>
         <meta property="og:title" content={titleHead}/>
         <meta property="og:description" content={desc}/>
@@ -29,8 +38,8 @@ function Header({ siteData, content }) {
         <meta name="twitter:title" content={titleHead}/>
         <meta name="twitter:description" content={desc}/>
         <meta name="twitter:image" content={image}/>
-        <meta name="twitter:site" content="@swyx"/>
-        <meta name="twitter:creator" content="@swyx"/>
+        <meta name="twitter:site" content="@happyhourdotfm"/>
+        <meta name="twitter:creator" content="@happyhourdotfm"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"/>
         <link rel="stylesheet" href="https://unpkg.com/@cassette/player@2.0.0-alpha.30/dist/css/cassette-player.min.css"/>
         <Favicon rel="apple-touch-icon" size="57x57"/>

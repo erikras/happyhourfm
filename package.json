@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "react-static start",
-    "build": "yarn run react-static build"
+    "build": "tsc && yarn run react-static build"
   },
   "dependencies": {
     "@cassette/core": "^2.0.0-alpha.30",
