@@ -11,3 +11,4 @@ export function formatTime(timeInSeconds) {
         leftPad(Math.round(timeInSeconds));
     return str;
 }
+//# sourceMappingURL=formatTime.js.map

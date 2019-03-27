@@ -7,7 +7,7 @@ export default styled(Footer)`
   text-align: center;
 `
 
-function Footer(props: any) {
+function Footer() {
   return (
     <Box tag="footer" align="center" flex="grow">
       <Box align="center">

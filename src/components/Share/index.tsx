@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import { Box, Button } from 'grommet'
 import { Checkmark, Twitter, Facebook, Link } from 'grommet-icons'
 import { copyToClipboard } from './copyToClipboard'
-import { IconFacebook } from './IconFacebook'
-import { IconTwitter } from './IconTwitter'
 import * as qs from 'qs'
 import { windowPopup } from './windowPopup'
 
@@ -17,7 +15,7 @@ export interface ShareRowProps {
 
 export default function Share(props: ShareRowProps) {
   const [didCopy, setDidCopy] = React.useState(false)
-  const { title, author, media } = props
+  const { title, author } = props
   const url = props.url
     ? props.url
     : typeof window !== 'undefined'

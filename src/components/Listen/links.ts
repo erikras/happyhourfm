@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { ListenLinkProps } from './ListenLink'
 
 export const links: ListenLinkProps[] = [
@@ -9,7 +8,7 @@ export const links: ListenLinkProps[] = [
   },
   {
     src: 'spotify.png',
-    href: '',
+    href: 'https://open.spotify.com/show/0rTLfgpiKEFUmuey4PFpg4',
     text: 'Spotify',
   },
   {

@@ -9,13 +9,6 @@ import Footer from '@src/components/Footer'
 import Listen from '@src/components/Listen'
 import DownloadBar from '@src/components/DownloadBar'
 import ShowNotes from '@src/components/ShowNotes'
-import styled from 'styled-components'
-
-const Main = styled('main')`
-  background: #fff;
-  display: flex;
-  flex-wrap: wrap;
-`
 
 type Props = {
   frontmatters: FMType[]

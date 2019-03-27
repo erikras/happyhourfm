@@ -6,8 +6,6 @@ import Header from '@src/components/Header'
 import Listen from '@src/components/Listen'
 import Footer from '@src/components/Footer'
 import ShowList from '@src/components/ShowList'
-import ShowNotes from '@src/components/ShowNotes'
-import styled from 'styled-components'
 
 type Props = {
   frontmatters: FMType[]

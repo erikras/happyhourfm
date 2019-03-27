@@ -1,15 +1,9 @@
 import React from 'react'
 import { FMType } from '../types'
-import { Link } from '@reach/router'
-import { Anchor, Box, Heading, Image, Paragraph } from 'grommet'
+import { Anchor, Box, Heading, Paragraph } from 'grommet'
 import { CirclePlay } from 'grommet-icons'
 import styled from 'styled-components'
 import { Location } from '@reach/router'
-
-interface Item {
-  frontmatter: FMType
-  isActive: boolean
-}
 
 interface Props {
   frontmatters: FMType[]
@@ -46,11 +40,7 @@ const EpisodeArt = styled(Box)`
 export default function ShowList({ frontmatters }: Props) {
   return (
     <Location>
-      {props => {
-        let activeEpisodeSlug = frontmatters[0].slug
-        if (props.location.pathname !== '/') {
-          activeEpisodeSlug = props.location.pathname.split('/').slice(-1)[0] // just grab the slug at the end. pretty brittle but ok
-        }
+      {() => {
         return (
           <Box>
             {frontmatters.map(fm => (

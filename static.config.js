@@ -77,6 +77,15 @@ export default {
       iTunesChannelFields,
     )
     mkFile('/dist/rss.xml', feed.rss2())
+
+    const replace = require('replace-in-file')
+    await replace({
+      files: 'dist/rss.xml',
+      from: /happyhour\.fm\/media\/001\.mp3/g,
+      to:
+        'anchor.fm/s/28c46d0/podcast/play/2712062/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fproduction%2F2019-2-22%2F11711811-44100-2-b79f339062d6b.mp3',
+    })
+
     return {
       title: 'Happy Hour with Dennis and Erik',
       description,
