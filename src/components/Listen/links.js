@@ -19,11 +19,11 @@ export const links = [
         href: 'http://pca.st/itunes/1457312016',
         text: 'PocketCasts',
     },
-    // {
-    //   src: 'google-play.png',
-    //   href: '',
-    //   text: 'Google Play',
-    // },
+    {
+        src: 'google-play.png',
+        href: 'https://playmusic.app.goo.gl/?ibi=com.google.PlayMusic&isi=691797987&ius=googleplaymusic&apn=com.google.android.music&link=https://play.google.com/music/m/Ion2gb33hnayli6zjac7bk6p4iy?t%3DHappy_Hour_with_Dennis_and_Erik%26pcampaignid%3DMKT-na-all-co-pr-mu-pod-16',
+        text: 'Google Play',
+    },
     {
         src: 'overcast.png',
         href: 'https://overcast.fm/itunes1457312016',
