@@ -25,7 +25,7 @@ const feedOptions = {
   link: myURL,
   id: myURL,
   copyright: 'Copyright – Erik Rasmussen and Dennis Schrantz',
-  podtrac: true,
+  podtrac: false,
   feedLinks: {
     // atom: safeJoin(myURL, 'atom.xml'),
     // json: safeJoin(myURL, 'feed.json'),
