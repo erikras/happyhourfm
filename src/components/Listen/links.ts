@@ -49,6 +49,12 @@ export const links: ListenLinkProps[] = [
     text: 'Castro',
   },
   {
+    src: 'podbean.png',
+    href:
+      'https://www.podbean.com/podcast-detail/nd9tt-8ae4e/Happy-Hour-with-Dennis-and-Erik-Podcast',
+    text: 'PodBean',
+  },
+  {
     src: 'rss.png',
     href: 'https://happyhour.fm/rss.xml',
     text: 'RSS Feed',
