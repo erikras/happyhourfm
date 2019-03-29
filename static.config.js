@@ -8,7 +8,7 @@ import { buildFeed, grabContents } from 'podcats'
 const myURL = 'https://happyhour.fm'
 
 const description =
-  'a candid and open weekly discussion between Dennis and Erik over drinks'
+  'A candid and open weekly discussion between Dennis and Erik over drinks'
 const image = 'https://happyhour.fm/art.jpg' // TODO: itunes cover and opengraph image. you should customise this!
 const ghURL = 'https://github.com/erikras/happyhourfm'
 const rss = myURL + '/rss.xml'
