@@ -104,7 +104,7 @@ function Header({ siteData, content }: { siteData: SiteData } & Props) {
         <Heading level="3" margin="xsmall">
           {description}
         </Heading>
-        <Share title={title} author="happyhourdotfm" url={myURL} />
+        <Share title={titleHead} author="happyhourdotfm" url={myURL} />
       </Box>
     </Box>
   )

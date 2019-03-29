@@ -29,7 +29,9 @@ export default withSiteData(
               title,
               description,
               myURL: `${myURL}/${episode.frontmatter.slug}`,
-              image: `${myURL}/${episode.frontmatter.art}` || image,
+              image: episode.frontmatter.art
+                ? `${myURL}/${episode.frontmatter.art}`
+                : image,
             }}
           />
 
