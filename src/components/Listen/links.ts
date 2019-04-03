@@ -44,6 +44,12 @@ export const links: ListenLinkProps[] = [
     text: 'Castbox',
   },
   {
+    src: 'tunein.svg',
+    href:
+      'https://tunein.com/podcasts/Comedy-Podcasts/Happy-Hour-with-Dennis-and-Erik-p1214867/',
+    text: 'TuneIn',
+  },
+  {
     src: 'castro.svg',
     href: 'https://castro.fm/itunes/1457312016',
     text: 'Castro',
