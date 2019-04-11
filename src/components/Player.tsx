@@ -1,26 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Episode } from '../types'
-import { MediaPlayer } from '@cassette/player'
+import AudioCard from 'audiocard'
 
-type Props = { episode: Episode }
+type Props = { episode: Episode; image?: string; linkToShowNotes?: boolean }
 
-const Player = ({ episode }: Props) => (
-  <Container>
-    <MediaPlayer
-      playlist={[
-        {
-          url: `https://dts.podtrac.com/redirect.mp3/happyhour.fm/media/${
-            episode.frontmatter.slug
-          }.mp3`,
-          title: episode.frontmatter.title,
-        },
-      ]}
-      controls={['playpause', 'spacer', 'progress']}
-      style={{ width: '100%' }}
-    />
-  </Container>
-)
+const Player = ({ episode, image, linkToShowNotes }: Props) => {
+  return (
+    <Container>
+      <AudioCard
+        art={
+          image || episode.frontmatter.art
+            ? `/${episode.frontmatter.art}`
+            : undefined
+        }
+        title={episode.frontmatter.title}
+        source={`https://dts.podtrac.com/redirect.mp3/happyhour.fm/media/${
+          episode.frontmatter.slug
+        }.mp3`}
+        preload="none"
+        link={linkToShowNotes ? `/${episode.frontmatter.slug}` : undefined}
+        linkText={linkToShowNotes ? 'Show Notes' : undefined}
+      />
+    </Container>
+  )
+}
 
 const Container = styled.div`
   width: 100%;

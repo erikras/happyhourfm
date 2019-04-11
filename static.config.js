@@ -113,6 +113,20 @@ export default {
           }),
         })),
       },
+      {
+        path: '/card',
+        getData: () => ({
+          contents,
+        }),
+        children: contents.map(content => ({
+          path: `/${content.frontmatter.slug}`,
+          component: 'src/pages/card',
+          getData: () => ({
+            content,
+            myURL,
+          }),
+        })),
+      },
     ]
   },
 }

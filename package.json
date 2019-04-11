@@ -6,13 +6,12 @@
     "build": "tsc && yarn run react-static build"
   },
   "dependencies": {
-    "@cassette/core": "^2.0.0-alpha.30",
-    "@cassette/player": "^2.0.0-alpha.30",
     "@reach/router": "^1.2.1",
     "@types/qs": "^6.5.2",
     "@types/react-helmet": "^5.0.8",
     "@types/styled-components": "^4.1.6",
     "@types/xml": "^1.0.2",
+    "audiocard": "^0.0.2",
     "axios": "^0.18.0",
     "core-js": "3",
     "date-fns": "^1.30.1",

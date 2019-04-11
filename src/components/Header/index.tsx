@@ -9,12 +9,17 @@ import { Favicon } from './Favicon'
 
 export default withRouteData(Header)
 
-type Props = { content?: Episode; mostRecentEpisode?: Episode }
 type SiteData = {
   title: string
   description: string
   myURL: string
   image: string
+}
+type Props = {
+  content?: Episode
+  siteData: SiteData
+  noContent?: boolean
+  twitterCard: string
 }
 
 const Title = styled(Anchor)`
@@ -25,13 +30,33 @@ const Title = styled(Anchor)`
 
 const Art = styled(Image).attrs({ src: '/art300.jpg', width: 300 })``
 
-function Header({ siteData, content }: { siteData: SiteData } & Props) {
+function Header({ siteData, content, noContent, twitterCard }: Props) {
   const { title, description, myURL, image } = siteData
   const titleHead =
     content && content.frontmatter.episode ? content.frontmatter.title : title
   const desc = content ? content.frontmatter.description : description
+  const cardMeta = twitterCard
+    ? [
+        <meta key="card" name="twitter:card" content="player" />,
+        <meta key="player" name="twitter:player" content={twitterCard} />,
+        <meta key="width" name="twitter:player:width" content="800" />,
+        <meta key="height" name="twitter:player:height" content="240" />,
+        <meta
+          name="twitter:player:stream"
+          key="stream"
+          content={`https://dts.podtrac.com/redirect.mp3/happyhour.fm/media/${
+            content.frontmatter.slug
+          }.mp3`}
+        />,
+        <meta
+          key="content_type"
+          name="twitter:player:stream:content_type"
+          content="audio/mpeg"
+        />,
+      ]
+    : []
   return (
-    <Box tag="header" direction="row-responsive" wrap flex="grow">
+    <React.Fragment>
       <Helmet>
         <meta charSet="utf-8" />
         <title>{titleHead}</title>
@@ -60,13 +85,10 @@ function Header({ siteData, content }: { siteData: SiteData } & Props) {
         <meta name="twitter:image" content={image} />
         <meta name="twitter:site" content="@happyhourdotfm" />
         <meta name="twitter:creator" content="@happyhourdotfm" />
+        {cardMeta}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
-        />
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/@cassette/player@2.0.0-alpha.30/dist/css/cassette-player.min.css"
         />
         <Favicon rel="apple-touch-icon" size="57x57" />
         <Favicon rel="apple-touch-icon" size="60x60" />
@@ -89,23 +111,26 @@ function Header({ siteData, content }: { siteData: SiteData } & Props) {
         />
         <meta name="theme-color" content="#ffffff" />
       </Helmet>
-
-      <Box align="center">
-        <a href="/">
-          <Box elevation="medium" width="300px">
-            <Art />
+      {noContent ? null : (
+        <Box tag="header" direction="row-responsive" wrap flex="grow">
+          <Box align="center">
+            <a href="/">
+              <Box elevation="medium" width="300px">
+                <Art />
+              </Box>
+            </a>
           </Box>
-        </a>
-      </Box>
-      <Box align="center" flex gap="xsmall" margin="medium">
-        <Heading margin="xsmall">
-          <Title href={myURL} label={title} />
-        </Heading>
-        <Heading level="3" margin="xsmall">
-          {description}
-        </Heading>
-        <Share title={titleHead} author="happyhourdotfm" url={myURL} />
-      </Box>
-    </Box>
+          <Box align="center" flex gap="xsmall" margin="medium">
+            <Heading margin="xsmall">
+              <Title href={myURL} label={title} />
+            </Heading>
+            <Heading level="3" margin="xsmall">
+              {description}
+            </Heading>
+            <Share title={titleHead} author="happyhourdotfm" url={myURL} />
+          </Box>
+        </Box>
+      )}
+    </React.Fragment>
   )
 }
