@@ -34,7 +34,8 @@
     "@types/webpack-env": "^1.13.6",
     "concurrently": "^4.1.0",
     "convert-tsconfig-paths-to-webpack-aliases": "^0.9.2",
-    "typescript": "^3.3.4000"
+    "typescript": "^3.3.4000",
+    "xml": "^1.0.1"
   },
   "prettier": {
     "semi": false,
