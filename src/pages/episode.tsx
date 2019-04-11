@@ -47,7 +47,7 @@ export default withSiteData(
                 pad={{ horizontal: 'medium' }}
               >
                 <DownloadBar />
-                <Player episode={episode} linkToShowNotes />
+                <Player episode={episode} />
                 <ShowNotes episode={episode} />
               </Box>
             </Box>

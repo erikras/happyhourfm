@@ -41,7 +41,7 @@ export default withSiteData(
               image: img,
             }}
           />
-          <Player episode={episode} image={img} />
+          <Player episode={episode} image={img} linkToShowNotes />
         </Grommet>
       )
     },
