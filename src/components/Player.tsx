@@ -15,9 +15,10 @@ const Player = ({ episode, image, linkToShowNotes }: Props) => {
             : undefined
         }
         title={episode.frontmatter.title}
-        source={`https://dts.podtrac.com/redirect.mp3/happyhour.fm/media/${
-          episode.frontmatter.slug
-        }.mp3`}
+        // source={`https://dts.podtrac.com/redirect.mp3/happyhour.fm/media/${
+        //   episode.frontmatter.slug
+        // }.mp3`}
+        source="/media/002.mp3"
         preload="none"
         link={linkToShowNotes ? `/${episode.frontmatter.slug}` : undefined}
         linkText={linkToShowNotes ? 'Show Notes' : undefined}
