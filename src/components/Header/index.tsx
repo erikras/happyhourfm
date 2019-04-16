@@ -65,14 +65,8 @@ function Header({ siteData, content, noContent, twitterCard }: Props) {
           src="https://www.googletagmanager.com/gtag/js?id=UA-137049034-1"
         />
         <script
-          dangerouslySetInnerHTML={{
-            __html: `
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-137049034-1');
-`,
-          }}
+          async
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-T7KGN2M"
         />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={titleHead} />
