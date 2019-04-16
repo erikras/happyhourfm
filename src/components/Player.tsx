@@ -3,25 +3,31 @@ import styled from 'styled-components'
 import { Episode } from '../types'
 import AudioCard from 'audiocard'
 
-type Props = { episode: Episode; image?: string; linkToShowNotes?: boolean }
+type Props = {
+  episode: Episode
+  image?: string
+  linkToShowNotes?: boolean
+  autoPlay?: boolean
+}
 
-const Player = ({ episode, image, linkToShowNotes }: Props) => {
+const Player = ({ episode, image, linkToShowNotes, autoPlay }: Props) => {
   return (
     <Container>
       <AudioCard
         art={
-          image || episode.frontmatter.art
-            ? `/${episode.frontmatter.art}`
-            : undefined
+          image ||
+          (episode.frontmatter.art ? `/${episode.frontmatter.art}` : undefined)
         }
         title={episode.frontmatter.title}
-        // source={`https://dts.podtrac.com/redirect.mp3/happyhour.fm/media/${
-        //   episode.frontmatter.slug
-        // }.mp3`}
-        source="/media/002.mp3"
+        source={`https://dts.podtrac.com/redirect.mp3/happyhour.fm/media/${
+          episode.frontmatter.slug
+        }.mp3`}
+        autoPlay={autoPlay}
         preload="none"
         link={linkToShowNotes ? `/${episode.frontmatter.slug}` : undefined}
         linkText={linkToShowNotes ? 'Show Notes' : undefined}
+        skipBackSeconds={10}
+        skipForwardSeconds={30}
       />
     </Container>
   )
@@ -32,9 +38,6 @@ const Container = styled.div`
   & > div {
     display: flex;
     flex-flow: row;
-    & > .cassette {
-      flex: 1;
-    }
   }
 `
 export default Player

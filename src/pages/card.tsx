@@ -19,31 +19,28 @@ type Props = {
   title: string
   description: string
   myURL: string
-  image: string
 }
 export default withSiteData(
-  withRouteData(
-    ({ content: episode, title, description, myURL, image }: Props) => {
-      if (!episode) return null
-      const img = episode.frontmatter.art
-        ? `${myURL}/${episode.frontmatter.art}`
-        : image
-      return (
-        <Grommet theme={theme}>
-          <GlobalStyle />
-          <Header
-            noContent
-            content={episode}
-            siteData={{
-              title,
-              description,
-              myURL: `${myURL}/${episode.frontmatter.slug}`,
-              image: img,
-            }}
-          />
-          <Player episode={episode} image={img} linkToShowNotes />
-        </Grommet>
-      )
-    },
-  ),
+  withRouteData(({ content: episode, title, description, myURL }: Props) => {
+    if (!episode) return null
+    const img = episode.frontmatter.art
+      ? `${myURL}/${episode.frontmatter.art}`
+      : '/art300.jpg'
+    return (
+      <Grommet theme={theme}>
+        <GlobalStyle />
+        <Header
+          noContent
+          content={episode}
+          siteData={{
+            title,
+            description,
+            myURL: `${myURL}/${episode.frontmatter.slug}`,
+            image: img,
+          }}
+        />
+        <Player episode={episode} image={img} linkToShowNotes autoPlay />
+      </Grommet>
+    )
+  }),
 )

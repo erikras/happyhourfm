@@ -9,7 +9,10 @@ export default withRouteData(({ content, episode }: Props) => {
   if (!ep || !ep.body) return 'no content'
   return (
     <Box fill>
-      <Paragraph key={ep.frontmatter.slug}>
+      <Paragraph
+        key={ep.frontmatter.slug}
+        style={{ maxWidth: '100%', width: '100%' }}
+      >
         <div dangerouslySetInnerHTML={{ __html: ep.body }} />
       </Paragraph>
     </Box>
