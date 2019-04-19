@@ -15,6 +15,11 @@ export const theme = {
       size: '14px',
       height: '20px',
     },
+    breakpoints: {
+      small: {
+        value: 767, // 1px under iPad width
+      },
+    },
   },
 }
 
