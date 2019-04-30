@@ -2,6 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { Box, Button } from 'grommet'
 import { Checkmark, Twitter, Facebook, Link } from 'grommet-icons'
+import { IconPatreon } from '../../components/Share/IconPatreon'
 import { copyToClipboard } from './copyToClipboard'
 import * as qs from 'qs'
 import { windowPopup } from './windowPopup'
@@ -52,6 +53,11 @@ export default function Share(props: ShareRowProps) {
         onClick={handleShare(fbUrl)}
         label="Share"
       />
+      <PatreonButton
+        href="https://patreon.com/happyhour"
+        icon={<IconPatreon />}
+        label="Become a Patron"
+      />
       <Button
         icon={didCopy ? <Checkmark /> : <Link />}
         onClick={() => {
@@ -71,5 +77,10 @@ const TwitterButton = styled(Button)`
 
 const FacebookButton = styled(Button)`
   background-color: #4267b2;
+  color: white;
+`
+
+const PatreonButton = styled(Button)`
+  background-color: rgb(232, 91, 70);
   color: white;
 `

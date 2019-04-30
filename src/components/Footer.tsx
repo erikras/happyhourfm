@@ -1,6 +1,7 @@
 import React from 'react'
 import { Anchor, Box, Heading, Paragraph } from 'grommet'
 import { Twitter, Facebook, Mail } from 'grommet-icons'
+import { IconPatreon } from './Share/IconPatreon'
 import styled from 'styled-components'
 
 export default styled(Footer)`
@@ -32,6 +33,12 @@ function Footer() {
           icon={<Facebook />}
           href="https://www.facebook.com/happyhourdotfm"
           label="Facebook"
+        />
+        <Anchor
+          margin="medium"
+          icon={<IconPatreon />}
+          href="https://patreon.com/happyhour"
+          label="Patreon"
         />
         <Anchor
           margin="medium"
