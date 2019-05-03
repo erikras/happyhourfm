@@ -12,6 +12,9 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
   }
+  blockquote {
+    border-left: 2px solid #cc9966;
+  }
 `
 
 type Props = {
