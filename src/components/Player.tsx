@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Episode } from '../types'
 import AudioCard from 'audiocard'
+import { prefixMp3 } from '../utils/prefixMp3'
 
 type Props = {
   episode: Episode
@@ -19,9 +20,7 @@ const Player = ({ episode, image, linkToShowNotes, autoPlay }: Props) => {
           (episode.frontmatter.art ? `/${episode.frontmatter.art}` : undefined)
         }
         title={episode.frontmatter.title}
-        source={`https://dts.podtrac.com/redirect.mp3/happyhour.fm/media/${
-          episode.frontmatter.slug
-        }.mp3`}
+        source={prefixMp3(`${episode.frontmatter.slug}.mp3`)}
         autoPlay={autoPlay}
         preload="none"
         link={linkToShowNotes ? `/${episode.frontmatter.slug}` : undefined}

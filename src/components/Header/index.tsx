@@ -6,6 +6,7 @@ import Share from '@src/components/Share'
 import { withRouteData } from 'react-static'
 import { Episode } from 'podcats'
 import { Favicon } from './Favicon'
+import { prefixMp3 } from '../utils/prefixMp3'
 
 export default withRouteData(Header)
 
@@ -44,9 +45,7 @@ function Header({ siteData, content, noContent, twitterCard }: Props) {
         <meta
           name="twitter:player:stream"
           key="stream"
-          content={`https://dts.podtrac.com/redirect.mp3/happyhour.fm/media/${
-            content.frontmatter.slug
-          }.mp3`}
+          content={prefixMp3(`${content.frontmatter.slug}.mp3`)}
         />,
         <meta
           key="content_type"

@@ -3,6 +3,7 @@ import { Anchor, Box, Paragraph } from 'grommet'
 import { Download, Edit } from 'grommet-icons'
 import { Episode } from '../types'
 import { withSiteData, withRouteData } from 'react-static'
+import { prefixMp3 } from '../utils/prefixMp3'
 
 export type DownloadBarProps = { content: Episode; ghURL: string }
 export const DownloadBar: React.FC<DownloadBarProps> = ({
@@ -17,12 +18,7 @@ export const DownloadBar: React.FC<DownloadBarProps> = ({
       flex="grow"
     >
       <Paragraph>
-        <Anchor
-          download=""
-          href={`https://dts.podtrac.com/redirect.mp3/happyhour.fm/media/${
-            frontmatter.slug
-          }.mp3`}
-        >
+        <Anchor download="" href={prefixMp3(`${frontmatter.slug}.mp3`)}>
           <Download alignmentBaseline="middle" /> Download Episode
         </Anchor>
       </Paragraph>
