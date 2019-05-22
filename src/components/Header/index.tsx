@@ -6,7 +6,7 @@ import Share from '@src/components/Share'
 import { withRouteData } from 'react-static'
 import { Episode } from 'podcats'
 import { Favicon } from './Favicon'
-import { prefixMp3 } from '../utils/prefixMp3'
+import { prefixMp3 } from '../../utils/prefixMp3'
 
 export default withRouteData(Header)
 

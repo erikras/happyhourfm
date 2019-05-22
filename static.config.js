@@ -1,8 +1,15 @@
 import axios from 'axios'
 import path from 'path'
 import { mkDir, mkFile } from './fs'
-const fs = require('fs')
+import fs from 'fs'
 import { buildFeed, grabContents } from 'podcats'
+
+// annoying to duplicate this code here from src/utils/prefixMp3
+export const decorateURL = url =>
+  `https://${['dts.podtrac.com/redirect.mp3/', 'chtbl.com/track/73173/'].reduce(
+    (result, prefix) => `${prefix}${result}`,
+    url.substring(8), // remove https://
+  )}`
 
 /// config
 const myURL = 'https://happyhour.fm'
