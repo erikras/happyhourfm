@@ -77,7 +77,13 @@ export default {
   getSiteData: async () => {
     // generate RSS
     let feed = await buildFeed(
-      contents,
+      // prefix show notes in feed with patreon link
+      contents.map(content => ({
+        ...content,
+        body: `<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>\n${
+          content.body
+        }\n<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>`,
+      })),
       myURL,
       author,
       feedOptions,
