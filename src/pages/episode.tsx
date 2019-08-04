@@ -8,6 +8,7 @@ import Header from '@src/components/Header'
 import Player from '@src/components/Player'
 import Footer from '@src/components/Footer'
 import Listen from '@src/components/Listen'
+import YouTube from '@src/components/YouTube'
 import DownloadBar from '@src/components/DownloadBar'
 import ShowNotes from '@src/components/ShowNotes'
 
@@ -47,7 +48,11 @@ export default withSiteData(
                 pad={{ horizontal: 'medium' }}
               >
                 <DownloadBar />
-                <Player episode={episode} />
+                {episode.frontmatter.youtube ? (
+                  <YouTube id={episode.frontmatter.youtube} />
+                ) : (
+                  <Player episode={episode} />
+                )}
                 <ShowNotes episode={episode} />
               </Box>
             </Box>

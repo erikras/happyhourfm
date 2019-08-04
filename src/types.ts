@@ -18,4 +18,5 @@ export type FMType = {
   episode?: number
   season?: number
   slug?: string
+  youtube?: string
 }
