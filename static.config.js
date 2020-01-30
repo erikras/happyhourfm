@@ -3,10 +3,11 @@ import path from 'path'
 import { mkDir, mkFile } from './fs'
 import fs from 'fs'
 import { buildFeed, grabContents } from 'podcats'
+import { prefixes } from './src/utils/prefixMp3'
 
 // annoying to duplicate this code here from src/utils/prefixMp3
 export const decorateURL = url =>
-  `https://${['dts.podtrac.com/redirect.mp3/', 'chtbl.com/track/73173/'].reduce(
+  `https://${prefixes.reduce(
     (result, prefix) => `${prefix}${result}`,
     url.substring(8), // remove https://
   )}`
@@ -80,9 +81,7 @@ export default {
       // prefix show notes in feed with patreon link
       contents.map(content => ({
         ...content,
-        body: `<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>\n${
-          content.body
-        }\n<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>`,
+        body: `<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>\n${content.body}\n<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>`,
       })),
       myURL,
       author,
