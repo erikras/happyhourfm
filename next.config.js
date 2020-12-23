@@ -7,4 +7,7 @@ module.exports = {
 
     return config
   },
+  poweredByHeader: false,
+  reactStrictMode: true,
+  target: 'serverless',
 }
