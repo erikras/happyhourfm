@@ -1,17 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Episode } from '../types'
 import AudioCard from 'audiocard'
-import { prefixMp3 } from '../utils/prefixMp3'
+import {Ep} from '../pages/[episode]'
+import {prefixMp3} from '../util/prefixMp3'
 
 type Props = {
-  episode: Episode
+  episode: Ep
   image?: string
   linkToShowNotes?: boolean
   autoPlay?: boolean
 }
 
-const Player = ({ episode, image, linkToShowNotes, autoPlay }: Props) => {
+const Player = ({episode, image, linkToShowNotes, autoPlay}: Props) => {
   return (
     <Container>
       <AudioCard

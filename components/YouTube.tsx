@@ -5,7 +5,7 @@ type Props = {
   id: string
 }
 
-const Player = ({ id }: Props) => {
+const YouTube = ({id}: Props) => {
   return (
     <Container>
       <Stretchy>
@@ -42,4 +42,4 @@ const Embed = styled.iframe`
   height: 100%;
 `
 
-export default Player
+export default YouTube

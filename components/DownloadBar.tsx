@@ -1,15 +1,12 @@
 import React from 'react'
-import { Anchor, Box, Paragraph } from 'grommet'
-import { Download, Edit } from 'grommet-icons'
-import { Episode } from '../types'
-import { withSiteData, withRouteData } from 'react-static'
-import { prefixMp3 } from '../utils/prefixMp3'
+import {Anchor, Box, Paragraph} from 'grommet'
+import {Download, Edit} from 'grommet-icons'
+import {ghURL} from '../util/constants'
+import {prefixMp3} from '../util/prefixMp3'
+import {EpisodeFrontMatter} from 'podcats'
 
-export type DownloadBarProps = { content: Episode; ghURL: string }
-export const DownloadBar: React.FC<DownloadBarProps> = ({
-  content: { frontmatter },
-  ghURL,
-}) => {
+export type DownloadBarProps = {frontmatter: EpisodeFrontMatter}
+export const DownloadBar: React.FC<DownloadBarProps> = ({frontmatter}) => {
   return (
     <Box
       direction="row-responsive"
@@ -22,7 +19,7 @@ export const DownloadBar: React.FC<DownloadBarProps> = ({
           <Download alignmentBaseline="middle" /> Download Episode
         </Anchor>
       </Paragraph>
-      <Paragraph style={{ lineHeight: '30px' }}>
+      <Paragraph style={{lineHeight: '30px'}}>
         {new Date(frontmatter.date).toLocaleDateString()}
       </Paragraph>
       <Paragraph>
@@ -38,4 +35,4 @@ export const DownloadBar: React.FC<DownloadBarProps> = ({
   )
 }
 
-export default withSiteData(withRouteData(DownloadBar))
+export default DownloadBar

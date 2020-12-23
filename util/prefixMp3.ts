@@ -7,5 +7,5 @@ export const prefixes = [
 export const prefixMp3 = (file: string) =>
   `https://${prefixes.reduce(
     (result, prefix) => `${prefix}${result}`,
-    `happyhour.fm/media/${file}`,
+    `happyhour.fm/media/${file}`
   )}`

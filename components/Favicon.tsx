@@ -4,7 +4,7 @@ interface FaviconProps {
   type?: string
 }
 
-export function Favicon({ rel, size, type }: FaviconProps) {
+export function Favicon({rel, size, type}: FaviconProps) {
   return (
     <link
       rel={rel}

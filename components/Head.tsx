@@ -1,38 +1,31 @@
 import React from 'react'
-import { Anchor, Box, Heading, Image } from 'grommet'
-import { Helmet } from 'react-helmet'
+import NextHead from 'next/head'
+import {Anchor, Box, Heading, Image} from 'grommet'
+import {Episode} from 'podcats'
+import {Favicon} from './Favicon'
 import styled from 'styled-components'
-import Share from '@src/components/Share'
-import { withRouteData } from 'react-static'
-import { Episode } from 'podcats'
-import { Favicon } from './Favicon'
-import { prefixMp3 } from '../../utils/prefixMp3'
+import {prefixMp3} from '../util/prefixMp3'
+import Share from './Share'
 
-export default withRouteData(Header)
-
-type SiteData = {
+interface HeadProps {
+  content?: Episode
+  noContent?: boolean
   title: string
   description: string
-  myURL: string
+  url: string
   image: string
-}
-type Props = {
-  content?: Episode
-  siteData: SiteData
-  noContent?: boolean
-  twitterCard: string
+  twitterCard?: string
 }
 
-const Title = styled(Anchor)`
-  &:hover {
-    text-decoration: none;
-  }
-`
-
-const Art = styled(Image).attrs({ src: '/art300.jpg', width: 300 })``
-
-function Header({ siteData, content, noContent, twitterCard }: Props) {
-  const { title, description, myURL, image } = siteData
+export default function Head({
+  content,
+  title,
+  description,
+  url,
+  image,
+  noContent,
+  twitterCard,
+}: HeadProps) {
   const titleHead =
     content && content.frontmatter.episode ? content.frontmatter.title : title
   const desc = content ? content.frontmatter.description : description
@@ -45,7 +38,7 @@ function Header({ siteData, content, noContent, twitterCard }: Props) {
         <meta
           name="twitter:player:stream"
           key="stream"
-          content={prefixMp3(`${content.frontmatter.slug}.mp3`)}
+          content={prefixMp3(`${content?.frontmatter.slug}.mp3`)}
         />,
         <meta
           key="content_type"
@@ -55,8 +48,8 @@ function Header({ siteData, content, noContent, twitterCard }: Props) {
       ]
     : []
   return (
-    <React.Fragment>
-      <Helmet>
+    <>
+      <NextHead>
         <meta charSet="utf-8" />
         <title>{titleHead}</title>
         <script
@@ -71,7 +64,7 @@ function Header({ siteData, content, noContent, twitterCard }: Props) {
         <meta property="og:title" content={titleHead} />
         <meta property="og:description" content={desc} />
         <meta property="og:image" content={image} />
-        <meta property="og:url" content={myURL} />
+        <meta property="og:url" content={url} />
         <meta property="og:site_name" content={title} />
         <meta name="twitter:title" content={titleHead} />
         <meta name="twitter:description" content={desc} />
@@ -103,7 +96,7 @@ function Header({ siteData, content, noContent, twitterCard }: Props) {
           content="/favicon/ms-icon-144x144.png"
         />
         <meta name="theme-color" content="#ffffff" />
-      </Helmet>
+      </NextHead>
       {noContent ? null : (
         <Box tag="header" direction="row-responsive" wrap flex="grow">
           <Box align="center">
@@ -115,15 +108,23 @@ function Header({ siteData, content, noContent, twitterCard }: Props) {
           </Box>
           <Box align="center" flex gap="xsmall" margin="medium">
             <Heading margin="xsmall">
-              <Title href={myURL} label={title} />
+              <Title href={url} label={title} />
             </Heading>
             <Heading level="3" margin="xsmall">
               {description}
             </Heading>
-            <Share title={titleHead} author="happyhourdotfm" url={myURL} />
+            <Share title={titleHead} author="happyhourdotfm" url={url} />
           </Box>
         </Box>
       )}
-    </React.Fragment>
+    </>
   )
 }
+
+const Title = styled(Anchor)`
+  &:hover {
+    text-decoration: none;
+  }
+`
+
+const Art = styled(Image).attrs({src: '/art300.jpg', width: 300})``

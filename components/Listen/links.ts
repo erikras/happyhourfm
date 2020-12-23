@@ -1,4 +1,5 @@
-import { ListenLinkProps } from './ListenLink'
+import {url} from '../../util/constants'
+import {ListenLinkProps} from './ListenLink'
 
 export const links: ListenLinkProps[] = [
   {
@@ -72,7 +73,7 @@ export const links: ListenLinkProps[] = [
   },
   {
     src: 'rss.png',
-    href: 'https://happyhour.fm/rss.xml',
+    href: `${url}/rss.xml`,
     text: 'RSS Feed',
   },
 ]

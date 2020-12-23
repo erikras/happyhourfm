@@ -1,7 +1,14 @@
+import {AppProps} from 'next/app'
 import React from 'react'
-import { Grommet, Box } from 'grommet'
+import {createGlobalStyle} from 'styled-components'
+import styledNormalize from 'styled-normalize'
+import {Box, Grommet, ThemeType} from 'grommet'
 
-export const theme = {
+const GlobalStyle = createGlobalStyle`
+  ${styledNormalize}
+`
+
+export const theme: ThemeType = {
   global: {
     colors: {
       brand: '#cc9966',
@@ -23,19 +30,20 @@ export const theme = {
   },
 }
 
-interface Props {
-  children: JSX.Element[] | JSX.Element
-}
-function Page({ children }: Props) {
+const MyApp = ({Component, pageProps}: AppProps) => {
+  if (pageProps.noWrap) {
+    return <Component {...pageProps} />
+  }
   return (
     <Grommet theme={theme} full>
+      <GlobalStyle />
       <Box fill>
         <Box pad="medium" width="xlarge" alignSelf="center">
-          {children}
+          <Component {...pageProps} />
         </Box>
       </Box>
     </Grommet>
   )
 }
 
-export default Page
+export default MyApp

@@ -1,11 +1,11 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { Box, Button } from 'grommet'
-import { Checkmark, Twitter, Facebook, Link } from 'grommet-icons'
-import { IconPatreon } from '../../components/Share/IconPatreon'
-import { copyToClipboard } from './copyToClipboard'
+import {Box, Button} from 'grommet'
+import {Checkmark, Twitter, Facebook, Link} from 'grommet-icons'
+import {IconPatreon} from '../../components/Share/IconPatreon'
+import {copyToClipboard} from './copyToClipboard'
 import * as qs from 'qs'
-import { windowPopup } from './windowPopup'
+import {windowPopup} from './windowPopup'
 
 export interface ShareRowProps {
   title?: string
@@ -16,7 +16,7 @@ export interface ShareRowProps {
 
 export default function Share(props: ShareRowProps) {
   const [didCopy, setDidCopy] = React.useState(false)
-  const { title, author } = props
+  const {title, author} = props
   const url = props.url
     ? props.url
     : typeof window !== 'undefined'
@@ -41,7 +41,7 @@ export default function Share(props: ShareRowProps) {
       align="center"
       justify="center"
       gap="small"
-      margin={{ top: 'small' }}
+      margin={{top: 'small'}}
     >
       <TwitterButton
         icon={<Twitter color="white" />}
