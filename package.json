@@ -5,15 +5,13 @@
     "build": "next build && yarn generate-sitemap && yarn generate-rss",
     "start": "next start",
     "generate-sitemap": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-sitemap.ts",
-    "generate-rss": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-rss.ts",
-    "postbuild": "next-on-netlify"
+    "generate-rss": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-rss.ts"
   },
   "dependencies": {
     "audiocard": "^1.0.0",
     "grommet": "^2.16.2",
     "grommet-icons": "^4.5.0",
     "next": "^10.0.4",
-    "next-on-netlify": "^2.6.3",
     "podcats": "^0.1.13",
     "qs": "^6.9.4",
     "react": "^17.0.1",
