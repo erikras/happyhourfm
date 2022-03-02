@@ -1,22 +1,21 @@
-import {url} from '../../util/constants'
-import {ListenLinkProps} from './ListenLink'
+import { url } from "../../util/constants";
+import { ListenLinkProps } from "./ListenLink";
 
 export const links: ListenLinkProps[] = [
   {
-    src: 'apple-podcasts.png',
-    href:
-      'https://itunes.apple.com/us/podcast/happy-hour-with-dennis-and-erik/id1457312016?mt=2',
-    text: 'Apple Podcasts',
+    src: "apple-podcasts.png",
+    href: "https://podcasts.apple.com/us/podcast/happy-hour-with-dennis-and-erik/id1457312016",
+    text: "Apple Podcasts",
   },
   {
-    src: 'spotify.png',
-    href: 'https://open.spotify.com/show/0rTLfgpiKEFUmuey4PFpg4',
-    text: 'Spotify',
+    src: "spotify.png",
+    href: "https://open.spotify.com/show/0rTLfgpiKEFUmuey4PFpg4",
+    text: "Spotify",
   },
   {
-    src: 'overcast.png',
-    href: 'https://overcast.fm/itunes1457312016',
-    text: 'Overcast',
+    src: "overcast.png",
+    href: "https://overcast.fm/itunes1457312016",
+    text: "Overcast",
   },
   // {
   //   src: 'google-podcasts.png',
@@ -24,56 +23,53 @@ export const links: ListenLinkProps[] = [
   //   text: 'Google Podcast',
   // },
   {
-    src: 'pocket-casts.png',
-    href: 'http://pca.st/itunes/1457312016',
-    text: 'PocketCasts',
+    src: "pocket-casts.png",
+    href: "http://pca.st/itunes/1457312016",
+    text: "PocketCasts",
   },
   {
-    src: 'google-play.png',
-    href:
-      'https://playmusic.app.goo.gl/?ibi=com.google.PlayMusic&isi=691797987&ius=googleplaymusic&apn=com.google.android.music&link=https://play.google.com/music/m/Ion2gb33hnayli6zjac7bk6p4iy?t%3DHappy_Hour_with_Dennis_and_Erik%26pcampaignid%3DMKT-na-all-co-pr-mu-pod-16',
-    text: 'Google Play',
+    src: "google-play.png",
+    href: "https://playmusic.app.goo.gl/?ibi=com.google.PlayMusic&isi=691797987&ius=googleplaymusic&apn=com.google.android.music&link=https://play.google.com/music/m/Ion2gb33hnayli6zjac7bk6p4iy?t%3DHappy_Hour_with_Dennis_and_Erik%26pcampaignid%3DMKT-na-all-co-pr-mu-pod-16",
+    text: "Google Play",
   },
   {
-    src: 'radiopublic.png',
-    href: 'https://radiopublic.com/happy-hour-with-dennis-and-erik-60Qaav',
-    text: 'RadioPublic',
+    src: "radiopublic.png",
+    href: "https://radiopublic.com/happy-hour-with-dennis-and-erik-60Qaav",
+    text: "RadioPublic",
   },
   {
-    src: 'podcast-republic.png',
-    href: 'https://podcastrepublic.net/podcast/1457312016',
-    text: 'Podcast Republic',
+    src: "podcast-republic.png",
+    href: "https://podcastrepublic.net/podcast/1457312016",
+    text: "Podcast Republic",
   },
   {
-    src: 'castbox.png',
-    href: 'https://castbox.fm/channel/id2067231',
-    text: 'Castbox',
+    src: "castbox.png",
+    href: "https://castbox.fm/channel/id2067231",
+    text: "Castbox",
   },
   {
-    src: 'tunein.svg',
-    href:
-      'https://tunein.com/podcasts/Comedy-Podcasts/Happy-Hour-with-Dennis-and-Erik-p1214867/',
-    text: 'TuneIn',
+    src: "tunein.svg",
+    href: "https://tunein.com/podcasts/Comedy-Podcasts/Happy-Hour-with-Dennis-and-Erik-p1214867/",
+    text: "TuneIn",
   },
   {
-    src: 'castro.svg',
-    href: 'https://castro.fm/itunes/1457312016',
-    text: 'Castro',
+    src: "castro.svg",
+    href: "https://castro.fm/itunes/1457312016",
+    text: "Castro",
   },
   {
-    src: 'podcast-addict.png',
-    href: 'http://podplayer.net/?podId=2375794',
-    text: 'Podcast Addict',
+    src: "podcast-addict.png",
+    href: "http://podplayer.net/?podId=2375794",
+    text: "Podcast Addict",
   },
   {
-    src: 'podbean.png',
-    href:
-      'https://www.podbean.com/podcast-detail/nd9tt-8ae4e/Happy-Hour-with-Dennis-and-Erik-Podcast',
-    text: 'PodBean',
+    src: "podbean.png",
+    href: "https://www.podbean.com/podcast-detail/nd9tt-8ae4e/Happy-Hour-with-Dennis-and-Erik-Podcast",
+    text: "PodBean",
   },
   {
-    src: 'rss.png',
+    src: "rss.png",
     href: `${url}/rss.xml`,
-    text: 'RSS Feed',
+    text: "RSS Feed",
   },
-]
+];
