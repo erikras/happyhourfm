@@ -1,8 +1,8 @@
 import fs from 'fs'
-import {Author, buildFeed, FeedOptions, ITunesChannelFields} from 'podcats'
-import {url, title, description, defaultImage} from '../util/constants'
+import { Author, buildFeed, FeedOptions, ITunesChannelFields } from 'podcats'
+import { defaultImage, description, title, url } from '../util/constants'
 import contents from '../util/content'
-import {prefixes} from '../util/prefixMp3'
+import { prefixes } from '../util/prefixMp3'
 const author: Author = {
   name: 'Erik Rasmussen and Dennis Schrantz',
   email: 'happyhourdotfm@gmail.com',
@@ -54,7 +54,7 @@ const iTunesChannelFields: ITunesChannelFields = {
       contents.map((content) => {
         return {
           ...content,
-          body: `<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>\n${content.body}\n<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>`,
+          body: `<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>\n${chopBeforeSummary(content.body)}\n<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>`,
         }
       }),
       url,
@@ -74,4 +74,9 @@ function safeJoin(a: string, b: string) {
   let a1 = a.slice(-1) === '/' ? a.slice(0, a.length - 1) : a
   let b1 = b.slice(0) === '/' ? b.slice(1) : b
   return `${a1}/${b1}`
+}
+
+function chopBeforeSummary(body: string) {
+  const indexOfSummary = body.indexOf('\n<h2>Summary</h2>')
+  return indexOfSummary === -1 ? body : body.slice(0, indexOfSummary)
 }
