@@ -23,16 +23,6 @@ export const links: ListenLinkProps[] = [
     text: "PocketCasts",
   },
   {
-    src: "google-play.png",
-    href: "https://playmusic.app.goo.gl/?ibi=com.google.PlayMusic&isi=691797987&ius=googleplaymusic&apn=com.google.android.music&link=https://play.google.com/music/m/Ion2gb33hnayli6zjac7bk6p4iy?t%3DHappy_Hour_with_Dennis_and_Erik%26pcampaignid%3DMKT-na-all-co-pr-mu-pod-16",
-    text: "Google Play",
-  },
-  {
-    src: "podvine.png",
-    href: "https://podvine.com/link?feed=https://happyhour.fm/rss.xml",
-    text: "Podvine",
-  },
-  {
     src: "radiopublic.png",
     href: "https://radiopublic.com/happy-hour-with-dennis-and-erik-60Qaav",
     text: "RadioPublic",
