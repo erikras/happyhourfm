@@ -61,8 +61,17 @@ const iTunesChannelFields: ITunesChannelFields = {
           if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
             date = date + 'T00:00:00Z'
           }
+          // Validate the date string
+          const parsedDate = new Date(date)
+          if (isNaN(parsedDate.getTime())) {
+            console.warn(`Invalid date for episode ${content.frontmatter.episode}: ${date}`)
+            date = new Date().toISOString() // fallback to current date
+          } else {
+            date = parsedDate.toISOString()
+          }
         } else {
-          date = ''
+          console.warn(`Unknown date type for episode ${content.frontmatter.episode}:`, typeof date, date)
+          date = new Date().toISOString() // fallback to current date
         }
         return {
           ...content,
