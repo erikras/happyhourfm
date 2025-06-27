@@ -19,7 +19,7 @@
     "generate-rss": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-rss.ts"
   },
   "dependencies": {
-    "next": "^15.3.4",
+    "next": "^14.2.5",
     "podcats": "^0.1.13",
     "qs": "^6.14.0",
     "react": "^19.1.0",
