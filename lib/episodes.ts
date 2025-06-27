@@ -69,4 +69,26 @@ export async function getEpisode(slug: string): Promise<Episode | null> {
 export async function getAllEpisodeSlugs(): Promise<string[]> {
   const { episodes } = await getEpisodes()
   return episodes.map(ep => ep.frontmatter.slug).filter(Boolean) as string[]
+}
+
+export async function getNextEpisode(currentSlug: string): Promise<Episode | null> {
+  const { episodes } = await getEpisodes()
+  const currentIndex = episodes.findIndex(ep => ep.frontmatter.slug === currentSlug)
+
+  if (currentIndex === -1 || currentIndex === 0) {
+    return null
+  }
+
+  return episodes[currentIndex - 1]
+}
+
+export async function getPreviousEpisode(currentSlug: string): Promise<Episode | null> {
+  const { episodes } = await getEpisodes()
+  const currentIndex = episodes.findIndex(ep => ep.frontmatter.slug === currentSlug)
+
+  if (currentIndex === -1 || currentIndex === episodes.length - 1) {
+    return null
+  }
+
+  return episodes[currentIndex + 1]
 } 

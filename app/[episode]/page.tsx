@@ -1,5 +1,10 @@
 import { notFound } from "next/navigation";
-import { getEpisode, getAllEpisodeSlugs } from "@/lib/episodes";
+import {
+  getEpisode,
+  getAllEpisodeSlugs,
+  getNextEpisode,
+  getPreviousEpisode,
+} from "@/lib/episodes";
 import Listen from "@/components/Listen";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -7,6 +12,7 @@ import DownloadBar from "@/components/DownloadBar";
 import Player from "@/components/Player";
 import ShowNotes from "@/components/ShowNotes";
 import YouTube from "@/components/YouTube";
+import EpisodeNavigation from "@/components/EpisodeNavigation";
 import { defaultImage, url } from "@/util/constants";
 
 interface EpisodePageProps {
@@ -26,6 +32,12 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
   if (!episode) {
     notFound();
   }
+
+  // Get next and previous episodes for navigation
+  const [nextEpisode, previousEpisode] = await Promise.all([
+    getNextEpisode(params.episode),
+    getPreviousEpisode(params.episode),
+  ]);
 
   return (
     <div className="space-y-8">
@@ -61,6 +73,12 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
           )}
 
           <ShowNotes episode={episode} />
+
+          <EpisodeNavigation
+            currentEpisode={episode}
+            nextEpisode={nextEpisode}
+            previousEpisode={previousEpisode}
+          />
         </div>
       </div>
       <Footer />
