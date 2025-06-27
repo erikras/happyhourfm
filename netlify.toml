@@ -1,6 +1,6 @@
 [build]
-  command = "npm run build"
-  publish = ".next"
+  command = "pnpm run build"
+  publish = "out"
 
 [build.environment]
   NODE_VERSION = "22" 
