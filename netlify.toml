@@ -3,4 +3,9 @@
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "22" 
+  NODE_VERSION = "22"
+
+# Explicitly disable plugins to avoid conflicts with Next.js 15
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+  enabled = false 
