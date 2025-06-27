@@ -16,11 +16,11 @@
     "check": "biome check .",
     "check:fix": "biome check --write .",
     "generate-sitemap": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-sitemap.ts",
-    "generate-rss": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-rss.ts"
+    "generate-rss": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-rss.ts",
+    "test": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-rss.test.ts"
   },
   "dependencies": {
     "next": "^15.3.4",
-    "podcats": "^0.1.13",
     "qs": "^6.14.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
@@ -28,6 +28,7 @@
   "devDependencies": {
     "@biomejs/biome": "^2.0.6",
     "@tailwindcss/typography": "0.5.16",
+    "@types/markdown-it": "^14.1.2",
     "@types/node": "^24.0.4",
     "@types/qs": "^6.14.0",
     "@types/react": "^19.1.8",
