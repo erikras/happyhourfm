@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
+@layer base {
+  html {
+    font-family: "Roboto", sans-serif;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+}
+
+@layer components {
+  .episode-card {
+    @apply bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 cursor-pointer;
+  }
+
+  .episode-art {
+    @apply relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-200;
+  }
+
+  .play-button {
+    @apply absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 hover:bg-opacity-50 transition-all duration-200;
+  }
+}

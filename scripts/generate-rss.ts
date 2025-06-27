@@ -9,7 +9,7 @@ const author: Author = {
   link: url,
 } as const
 
-const decorateURL = (url) =>
+const decorateURL = (url: string) =>
   `https://${prefixes.reduce(
     (result, prefix) => `${prefix}${result}`,
     url.substring(8) // remove https://
@@ -35,11 +35,11 @@ const iTunesChannelFields: ITunesChannelFields = {
   author: author.name,
   keywords: ['Comedy'],
   categories: [
-    {cat: 'Comedy'},
-    {cat: 'News & Politics'},
-    {cat: 'Society & Culture', child: 'Philosophy'},
-    {cat: 'Society & Culture', child: 'Places & Travel'},
-    {cat: 'Sports & Recreation', child: 'TV & Film'},
+    { cat: 'Comedy' },
+    { cat: 'News & Politics' },
+    { cat: 'Society & Culture', child: 'Philosophy' },
+    { cat: 'Society & Culture', child: 'Places & Travel' },
+    { cat: 'Sports & Recreation', child: 'TV & Film' },
   ],
   image: defaultImage,
   explicit: true,
@@ -47,27 +47,46 @@ const iTunesChannelFields: ITunesChannelFields = {
   type: 'episodic',
 }
 
-;(async () => {
-  try {
-    let feed = await buildFeed(
-      // prefix show notes in feed with patreon link
-      contents.map((content) => {
+  ; (async () => {
+    try {
+      const normalizedContents = contents.map((content) => {
+        // Normalize date to string (YYYY-MM-DD)
+        let date = content.frontmatter.date
+        if (Object.prototype.toString.call(date) === '[object Date]') {
+          date = (date as unknown as Date).toISOString()
+        } else if (typeof date === 'number') {
+          date = new Date(date).toISOString()
+        } else if (typeof date === 'string') {
+          // If it's just YYYY-MM-DD, add T00:00:00Z
+          if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+            date = date + 'T00:00:00Z'
+          }
+        } else {
+          date = ''
+        }
         return {
           ...content,
+          frontmatter: {
+            ...content.frontmatter,
+            date,
+          },
           body: `<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>\n${chopBeforeSummary(content.body)}\n<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>`,
         }
-      }),
-      url,
-      author,
-      feedOptions,
-      iTunesChannelFields
-    )
+      })
+      console.log('Episode dates:', normalizedContents.map(c => c.frontmatter.date))
+      let feed = await buildFeed(
+        normalizedContents,
+        url,
+        author,
+        feedOptions,
+        iTunesChannelFields
+      )
 
-    fs.writeFileSync('public/rss.xml', feed.rss2())
-  } catch (error) {
-    console.error(error)
-  }
-})()
+      fs.writeFileSync('public/rss.xml', feed.rss2())
+    } catch (error) {
+      console.error(error)
+    }
+  })()
 
 function safeJoin(a: string, b: string) {
   /** strip starting/leading slashes and only use our own */

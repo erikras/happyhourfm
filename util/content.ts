@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import {grabContents} from 'podcats'
-import {url} from './constants'
+import { grabContents } from 'podcats'
+import { url } from './constants'
 
 const contentFolder = 'content'
 
@@ -12,6 +12,6 @@ const filepaths = filenames.map((file) =>
 
 const contents = grabContents(filepaths, url)
 
-contents.sort((a, b) => b.frontmatter.episode - a.frontmatter.episode)
+contents.sort((a, b) => (b.frontmatter.episode ?? 0) - (a.frontmatter.episode ?? 0))
 
 export default contents

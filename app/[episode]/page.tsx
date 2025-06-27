@@ -1,0 +1,65 @@
+import { notFound } from "next/navigation";
+import { getEpisode, getAllEpisodeSlugs } from "@/lib/episodes";
+import Listen from "@/components/Listen";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import DownloadBar from "@/components/DownloadBar";
+import Player from "@/components/Player";
+import ShowNotes from "@/components/ShowNotes";
+import YouTube from "@/components/YouTube";
+import { defaultImage, url } from "@/util/constants";
+
+interface EpisodePageProps {
+  params: { episode: string };
+}
+
+export async function generateStaticParams() {
+  const slugs = await getAllEpisodeSlugs();
+  return slugs.map((slug) => ({
+    episode: slug,
+  }));
+}
+
+export default async function EpisodePage({ params }: EpisodePageProps) {
+  const episode = await getEpisode(params.episode);
+
+  if (!episode) {
+    notFound();
+  }
+
+  return (
+    <div className="space-y-8">
+      <Header episode={episode} />
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="lg:col-span-1">
+          <Listen />
+        </div>
+        <div className="lg:col-span-3">
+          <DownloadBar frontmatter={episode.frontmatter} />
+
+          {episode.frontmatter.episode &&
+            episode.frontmatter.episode >= 146 && (
+              <div className="text-lg leading-relaxed mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <a
+                  href="https://patreon.com/happyhour"
+                  className="text-blue-600 hover:text-blue-800 underline"
+                >
+                  Become a Patron at the Gin Martinis tier to watch the video
+                  recording of this episode.
+                </a>
+              </div>
+            )}
+
+          {episode.frontmatter.youtube ? (
+            <YouTube id={episode.frontmatter.youtube} />
+          ) : (
+            <Player episode={episode} />
+          )}
+
+          <ShowNotes episode={episode} />
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
+}
