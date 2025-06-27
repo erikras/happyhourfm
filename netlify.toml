@@ -4,4 +4,8 @@
 
 [build.environment]
   NODE_VERSION = "22"
-  NPM_FLAGS = "--version" 
+  NPM_FLAGS = "--version"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+  pinned_version = "5.11.4" 
