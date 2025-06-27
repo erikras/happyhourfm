@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Happy Hour Podcast",
+  title: "Happy Hour with Dennis and Erik",
   description: "A podcast about life, comedy, and everything in between",
   metadataBase: new URL("https://happyhour.fm"),
 };

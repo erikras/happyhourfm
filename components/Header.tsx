@@ -7,7 +7,9 @@ interface HeaderProps {
 }
 
 export default function Header({ episode }: HeaderProps) {
-  const title = episode ? episode.frontmatter.title : "Happy Hour";
+  const title = episode
+    ? episode.frontmatter.title
+    : "Happy Hour with Dennis and Erik";
   const description = episode
     ? undefined // Don't show episode description in header
     : "A candid and open weekly discussion between Dennis and Erik over drinks";

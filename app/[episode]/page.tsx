@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 import {
   getEpisode,
   getAllEpisodeSlugs,
@@ -24,6 +25,41 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({
     episode: slug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: EpisodePageProps): Promise<Metadata> {
+  const episode = await getEpisode(params.episode);
+
+  if (!episode) {
+    return {
+      title: "Episode Not Found",
+    };
+  }
+
+  const title = `Happy Hour – ${episode.frontmatter.title}`;
+  const description = episode.frontmatter.description;
+  const imageUrl = episode.frontmatter.art
+    ? `${url}/${episode.frontmatter.art}`
+    : defaultImage;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [imageUrl],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+    },
+  };
 }
 
 export default async function EpisodePage({ params }: EpisodePageProps) {
