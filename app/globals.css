@@ -24,6 +24,6 @@
   }
 
   .play-button {
-    @apply absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 hover:bg-opacity-50 transition-all duration-200;
+    @apply absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 hover:bg-black hover:bg-opacity-50 transition-all duration-200;
   }
 }

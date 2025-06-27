@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Share from "./Share";
-import { Episode } from "../lib/episodes";
+import type { Episode } from "../lib/episodes";
 
 interface HeaderProps {
   episode?: Episode;

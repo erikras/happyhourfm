@@ -1,5 +1,5 @@
 import { url } from "../../util/constants";
-import { ListenLinkProps } from "./ListenLink";
+import type { ListenLinkProps } from "./ListenLink";
 
 export const links: ListenLinkProps[] = [
   {

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import {
   getEpisode,
   getAllEpisodeSlugs,
@@ -17,7 +17,7 @@ import EpisodeNavigation from "@/components/EpisodeNavigation";
 import { defaultImage, url } from "@/util/constants";
 
 interface EpisodePageProps {
-  params: { episode: string };
+  params: Promise<{ episode: string }>;
 }
 
 export async function generateStaticParams() {

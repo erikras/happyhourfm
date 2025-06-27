@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Episode } from "../lib/episodes";
+import type { Episode } from "../lib/episodes";
 
 interface EpisodeNavigationProps {
   currentEpisode: Episode;

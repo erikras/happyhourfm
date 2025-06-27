@@ -6,10 +6,11 @@ import Header from "../components/Header";
 import { getEpisodes } from "../lib/episodes";
 
 interface HomePageProps {
-  searchParams: { page?: string };
+  searchParams: Promise<{ page?: string }>;
 }
 
 export default async function HomePage({ searchParams }: HomePageProps) {
+  const { page } = await searchParams;
   const { episodes } = await getEpisodes();
   const episodesPerPage = 10;
 

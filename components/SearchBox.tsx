@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Episode } from "../lib/episodes";
+import type { Episode } from "../lib/episodes";
 
 interface SearchBoxProps {
   episodes: Episode[];

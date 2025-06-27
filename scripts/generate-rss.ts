@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { Author, buildFeed, FeedOptions, ITunesChannelFields } from 'podcats'
+import { type Author, buildFeed, type FeedOptions, type ITunesChannelFields } from 'podcats'
 import { defaultImage, description, title, url } from '../util/constants'
 import contents from '../util/content'
 import { prefixes } from '../util/prefixMp3'
@@ -74,7 +74,7 @@ const iTunesChannelFields: ITunesChannelFields = {
         }
       })
       console.log('Episode dates:', normalizedContents.map(c => c.frontmatter.date))
-      let feed = await buildFeed(
+      const feed = await buildFeed(
         normalizedContents,
         url,
         author,
@@ -90,8 +90,8 @@ const iTunesChannelFields: ITunesChannelFields = {
 
 function safeJoin(a: string, b: string) {
   /** strip starting/leading slashes and only use our own */
-  let a1 = a.slice(-1) === '/' ? a.slice(0, a.length - 1) : a
-  let b1 = b.slice(0) === '/' ? b.slice(1) : b
+  const a1 = a.slice(-1) === '/' ? a.slice(0, a.length - 1) : a
+  const b1 = b.slice(0) === '/' ? b.slice(1) : b
   return `${a1}/${b1}`
 }
 

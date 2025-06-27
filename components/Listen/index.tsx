@@ -1,16 +1,15 @@
-import * as React from 'react'
-import { ListenLink } from './ListenLink'
-import { links } from './links'
-import { Box } from 'grommet'
+import * as React from "react";
+import { ListenLink } from "./ListenLink";
+import { links } from "./links";
 
 function Listen() {
   return (
-    <Box width="300px" gap="xsmall">
-      {links.map(link => (
+    <div className="w-[300px] space-y-2">
+      {links.map((link) => (
         <ListenLink key={link.text} {...link} />
       ))}
-    </Box>
-  )
+    </div>
+  );
 }
 
-export default Listen
+export default Listen;

@@ -1,36 +1,27 @@
-import * as React from 'react'
-import styled from 'styled-components'
-import { Image } from 'grommet'
+import * as React from "react";
 
 export interface ListenLinkProps {
-  src: string
-  href: string
-  text: string
+  src: string;
+  href: string;
+  text: string;
 }
 
-const Link = styled('a').attrs({ target: '_blank' })`
-  display: block;
-  border-radius: 12px;
-  text-decoration: none;
-  background-color: rgba(0, 115, 157, 0);
-  transition: background 100ms ease-out;
-  font-size: 20px;
-  padding: 5px;
-  color: black;
-  &:hover {
-    background-color: rgba(0, 115, 157, 0.2);
-  }
-  img {
-    margin-right: 10px;
-    vertical-align: middle;
-    border-radius: 12px;
-  }
-`
 export function ListenLink({ src, href, text }: ListenLinkProps) {
   return (
-    <Link href={href}>
-      <Image src={`/listen/${src}`} width="40px" height="40px" />
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block rounded-xl text-decoration-none bg-blue-900/0 transition-colors duration-100 ease-out text-xl p-1 text-black hover:bg-blue-900/20"
+    >
+      <img
+        src={`/listen/${src}`}
+        width="40"
+        height="40"
+        className="mr-2.5 align-middle rounded-xl"
+        alt={text}
+      />
       {text}
-    </Link>
-  )
+    </a>
+  );
 }

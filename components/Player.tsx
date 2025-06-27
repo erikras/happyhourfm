@@ -1,5 +1,5 @@
 import { prefixMp3 } from "../util/prefixMp3";
-import { Episode } from "../lib/episodes";
+import type { Episode } from "../lib/episodes";
 
 type Props = {
   episode: Episode;
