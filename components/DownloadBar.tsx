@@ -28,9 +28,7 @@ export default function DownloadBar({ frontmatter }: DownloadBarProps) {
         </a>
       </div>
 
-      <div className="text-gray-600">
-        {new Date(frontmatter.date).toLocaleDateString()}
-      </div>
+      <div className="text-gray-600">{frontmatter.date}</div>
 
       <div>
         <a
