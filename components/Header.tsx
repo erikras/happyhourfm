@@ -14,6 +14,9 @@ export default function Header({ episode }: HeaderProps) {
     ? undefined // Don't show episode description in header
     : "A candid and open weekly discussion between Dennis and Erik over drinks";
   const shareTitle = episode ? episode.frontmatter.title : "Happy Hour Podcast";
+  const shareDescription = episode
+    ? episode.frontmatter.description
+    : undefined;
   const shareUrl = episode
     ? `https://happyhour.fm/${episode.frontmatter.slug}`
     : "https://happyhour.fm";
@@ -49,7 +52,12 @@ export default function Header({ episode }: HeaderProps) {
           </h2>
         )}
         <div className="mt-4">
-          <Share title={shareTitle} author="happyhourdotfm" url={shareUrl} />
+          <Share
+            title={shareTitle}
+            description={shareDescription}
+            author="happyhourdotfm"
+            url={shareUrl}
+          />
         </div>
       </div>
     </header>

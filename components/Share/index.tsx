@@ -12,24 +12,52 @@ import CheckIcon from "../icons/CheckIcon";
 
 export interface ShareRowProps {
   title?: string;
+  description?: string;
   media?: string;
   url?: string;
   author?: string;
 }
 
+// Function to truncate description for social media sharing
+function truncateDescription(
+  description: string,
+  maxLength: number = 80,
+): string {
+  if (description.length <= maxLength) {
+    return description;
+  }
+
+  // Try to truncate at a word boundary
+  const truncated = description.substring(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(" ");
+
+  if (lastSpace > maxLength * 0.8) {
+    // If we can find a space in the last 20% of the text
+    return truncated.substring(0, lastSpace) + "...";
+  }
+
+  return truncated + "...";
+}
+
 export default function Share(props: ShareRowProps) {
   const [didCopy, setDidCopy] = React.useState(false);
-  const { title, author } = props;
+  const { title, description, author } = props;
   const url = props.url
     ? props.url
     : typeof window !== "undefined"
     ? window.location.href
     : "";
+
+  // Create share text with title and truncated description
+  const shareText = description
+    ? `${title} - ${truncateDescription(description, 80)}`
+    : title;
+
   const fbUrl = `https://www.facebook.com/sharer/sharer.php?${qs.stringify({
     u: url,
   })}`;
   const twUrl = `https://twitter.com/intent/tweet?${qs.stringify({
-    text: title,
+    text: shareText,
     url,
     via: author,
   })}`;

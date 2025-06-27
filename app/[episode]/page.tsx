@@ -51,7 +51,14 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      images: [imageUrl],
+      images: [
+        {
+          url: imageUrl,
+          width: 900,
+          height: 900,
+          alt: title,
+        },
+      ],
       type: "article",
       siteName: "Happy Hour with Dennis and Erik",
     },
@@ -59,7 +66,12 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [imageUrl],
+      images: [
+        {
+          url: imageUrl,
+          alt: title,
+        },
+      ],
       creator: "@happyhourdotfm",
       site: "@happyhourdotfm",
     },

@@ -17,7 +17,14 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "Happy Hour with Dennis and Erik",
       description: "A podcast about life, comedy, and everything in between",
-      images: ["https://happyhour.fm/art.jpg"],
+      images: [
+        {
+          url: "https://happyhour.fm/art.jpg",
+          width: 3000,
+          height: 3000,
+          alt: "Happy Hour with Dennis and Erik",
+        },
+      ],
       type: "website",
       siteName: "Happy Hour with Dennis and Erik",
     },
@@ -25,7 +32,12 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: "Happy Hour with Dennis and Erik",
       description: "A podcast about life, comedy, and everything in between",
-      images: ["https://happyhour.fm/art.jpg"],
+      images: [
+        {
+          url: "https://happyhour.fm/art.jpg",
+          alt: "Happy Hour with Dennis and Erik",
+        },
+      ],
       creator: "@happyhourdotfm",
       site: "@happyhourdotfm",
     },
