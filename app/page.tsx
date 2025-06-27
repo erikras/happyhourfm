@@ -1,6 +1,5 @@
 import { Suspense } from "react";
-import EpisodeList from "../components/EpisodeList";
-import Pagination from "../components/Pagination";
+import EpisodeListWithSearch from "../components/EpisodeListWithSearch";
 import Listen from "../components/Listen";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -11,14 +10,8 @@ interface HomePageProps {
 }
 
 export default async function HomePage({ searchParams }: HomePageProps) {
-  const page = parseInt(searchParams.page || "1");
+  const { episodes } = await getEpisodes();
   const episodesPerPage = 10;
-
-  const { episodes, totalEpisodes } = await getEpisodes();
-  const totalPages = Math.ceil(totalEpisodes / episodesPerPage);
-  const startIndex = (page - 1) * episodesPerPage;
-  const endIndex = startIndex + episodesPerPage;
-  const currentEpisodes = episodes.slice(startIndex, endIndex);
 
   return (
     <div className="space-y-8">
@@ -29,9 +22,11 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </div>
         <div className="lg:col-span-3">
           <Suspense fallback={<div>Loading episodes...</div>}>
-            <EpisodeList episodes={currentEpisodes} />
+            <EpisodeListWithSearch
+              episodes={episodes}
+              episodesPerPage={episodesPerPage}
+            />
           </Suspense>
-          <Pagination currentPage={page} totalPages={totalPages} baseUrl="/" />
         </div>
       </div>
       <Footer />
