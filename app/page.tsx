@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import EpisodeListWithSearch from "../components/EpisodeListWithSearch";
 import Listen from "../components/Listen";
 import Footer from "../components/Footer";
@@ -7,6 +8,28 @@ import { getEpisodes } from "../lib/episodes";
 
 interface HomePageProps {
   searchParams: Promise<{ page?: string }>;
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Happy Hour with Dennis and Erik",
+    description: "A podcast about life, comedy, and everything in between",
+    openGraph: {
+      title: "Happy Hour with Dennis and Erik",
+      description: "A podcast about life, comedy, and everything in between",
+      images: ["https://happyhour.fm/art.jpg"],
+      type: "website",
+      siteName: "Happy Hour with Dennis and Erik",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Happy Hour with Dennis and Erik",
+      description: "A podcast about life, comedy, and everything in between",
+      images: ["https://happyhour.fm/art.jpg"],
+      creator: "@happyhourdotfm",
+      site: "@happyhourdotfm",
+    },
+  };
 }
 
 export default async function HomePage({ searchParams }: HomePageProps) {
