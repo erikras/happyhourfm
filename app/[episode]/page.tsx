@@ -37,6 +37,10 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
         <div className="lg:col-span-3">
           <DownloadBar frontmatter={episode.frontmatter} />
 
+          <div className="text-lg leading-relaxed mb-6 text-gray-700">
+            {episode.frontmatter.description}
+          </div>
+
           {episode.frontmatter.episode &&
             episode.frontmatter.episode >= 146 && (
               <div className="text-lg leading-relaxed mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">

@@ -9,7 +9,7 @@ interface HeaderProps {
 export default function Header({ episode }: HeaderProps) {
   const title = episode ? episode.frontmatter.title : "Happy Hour";
   const description = episode
-    ? episode.frontmatter.description
+    ? undefined // Don't show episode description in header
     : "A candid and open weekly discussion between Dennis and Erik over drinks";
   const shareTitle = episode ? episode.frontmatter.title : "Happy Hour Podcast";
   const shareUrl = episode
@@ -41,9 +41,11 @@ export default function Header({ episode }: HeaderProps) {
             {title}
           </Link>
         </h1>
-        <h2 className="text-xl lg:text-2xl text-gray-700 font-medium">
-          {description}
-        </h2>
+        {description && (
+          <h2 className="text-xl lg:text-2xl text-gray-700 font-medium">
+            {description}
+          </h2>
+        )}
         <div className="mt-4">
           <Share title={shareTitle} author="happyhourdotfm" url={shareUrl} />
         </div>
