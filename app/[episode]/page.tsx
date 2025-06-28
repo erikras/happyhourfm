@@ -43,6 +43,7 @@ export async function generateMetadata({
   const imageUrl = ep.frontmatter.art
     ? `https://happyhour.fm/${ep.frontmatter.art}`
     : "https://happyhour.fm/art.jpg";
+  const playerUrl = `https://happyhour.fm/player/${ep.frontmatter.slug}`;
 
   return {
     title,
@@ -62,7 +63,7 @@ export async function generateMetadata({
       siteName: "Happy Hour with Dennis and Erik",
     },
     twitter: {
-      card: "summary_large_image",
+      card: "player",
       title,
       description,
       images: [
@@ -73,6 +74,11 @@ export async function generateMetadata({
       ],
       creator: "@happyhourdotfm",
       site: "@happyhourdotfm",
+    },
+    other: {
+      "twitter:player": playerUrl,
+      "twitter:player:width": "480",
+      "twitter:player:height": "200",
     },
   };
 }
