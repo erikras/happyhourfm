@@ -10,9 +10,8 @@ import Listen from "@/components/Listen";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import DownloadBar from "@/components/DownloadBar";
-import Player from "@/components/Player";
+import AudioCardComponent from "@/components/AudioCard";
 import ShowNotes from "@/components/ShowNotes";
-import YouTube from "@/components/YouTube";
 import EpisodeNavigation from "@/components/EpisodeNavigation";
 import { defaultImage, url } from "@/util/constants";
 
@@ -118,11 +117,7 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
             </div>
           )}
 
-          {ep.frontmatter.youtube ? (
-            <YouTube id={ep.frontmatter.youtube} />
-          ) : (
-            <Player episode={ep} />
-          )}
+          <AudioCardComponent episode={ep} />
 
           <ShowNotes episode={ep} />
 

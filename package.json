@@ -20,6 +20,7 @@
     "test": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-rss.test.ts"
   },
   "dependencies": {
+    "audiocard": "^1.0.0",
     "next": "^15.3.4",
     "qs": "^6.14.0",
     "react": "^19.1.0",
