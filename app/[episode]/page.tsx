@@ -66,12 +66,7 @@ export async function generateMetadata({
       card: "player",
       title,
       description,
-      images: [
-        {
-          url: imageUrl,
-          alt: title,
-        },
-      ],
+      images: [imageUrl],
       creator: "@happyhourdotfm",
       site: "@happyhourdotfm",
     },
@@ -79,6 +74,7 @@ export async function generateMetadata({
       "twitter:player": playerUrl,
       "twitter:player:width": "480",
       "twitter:player:height": "200",
+      "twitter:image:alt": `Cover art for ${title}`,
     },
   };
 }

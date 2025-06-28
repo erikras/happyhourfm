@@ -30,7 +30,7 @@ export default function PlayerComponent({ episode }: PlayerComponentProps) {
     : "https://happyhour.fm/art.jpg";
 
   return (
-    <div className="w-full h-full bg-white p-4">
+    <div className="w-full h-full bg-white">
       <AudioCard
         title={episode.frontmatter.title}
         art={imageUrl}
