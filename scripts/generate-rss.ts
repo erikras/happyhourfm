@@ -1,5 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import { defaultImage, description, title, url } from '../util/constants'
 import contents from '../util/content'
 import { prefixes } from '../util/prefixMp3'

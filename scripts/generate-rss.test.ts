@@ -1,4 +1,8 @@
-import { generateRSS, formatDate, formatDuration } from './generate-rss-custom'
+import { describe, it, expect } from 'vitest'
+import Parser from 'rss-parser'
+import { generateRSS, formatDate, formatDuration } from './generate-rss'
+
+const parser = new Parser()
 
 describe('Custom RSS Generator', () => {
   describe('formatDate', () => {
@@ -115,7 +119,7 @@ describe('Custom RSS Generator', () => {
       const rss = generateRSS(feedWithSpecialChars)
 
       expect(rss).toContain('Test &amp; Podcast &lt;with&gt; &quot;quotes&quot;')
-      expect(rss).toContain('Episode &amp; Test &lt;with&gt; &quot;quotes&quot;')
+      expect(rss).toContain('<title><![CDATA[Episode & Test <with> "quotes"]]></title>')
     })
 
     it('should handle multiple episodes', () => {
@@ -153,6 +157,72 @@ describe('Custom RSS Generator', () => {
       expect(rss).toContain('Sat, 28 Jun 2025 00:00:00 GMT')
       expect(rss).toContain('30:00')
       expect(rss).toContain('40:00')
+    })
+
+    it('should generate valid RSS that can be parsed by rss-parser', async () => {
+      const rss = generateRSS(mockFeed)
+
+      // Parse the generated RSS to ensure it's valid
+      const parsedFeed = await parser.parseString(rss)
+
+      // Verify the feed has the expected structure
+      expect(parsedFeed.title).toBe('Test Podcast')
+      expect(parsedFeed.description).toBe('A test podcast')
+      expect(parsedFeed.link).toBe('https://example.com')
+
+      // Verify it has items
+      expect(parsedFeed.items).toBeDefined()
+      expect(parsedFeed.items.length).toBe(1)
+
+      // Verify the first item has required fields
+      const firstItem = parsedFeed.items[0]
+      expect(firstItem.title).toBe('Episode 1')
+      // The link should point to the decorated MP3 URL, not the episode page
+      expect(firstItem.link).toContain('pdcn.co')
+      expect(firstItem.guid).toContain('pdcn.co')
+      expect(firstItem.pubDate).toBeDefined()
+      expect(firstItem.isoDate).toBeDefined()
+    })
+
+    it('should handle special characters in titles correctly', async () => {
+      const feedWithSpecialChars = {
+        ...mockFeed,
+        title: 'Test & Podcast <with> "quotes"',
+        episodes: [
+          {
+            ...mockFeed.episodes[0],
+            title: 'Episode & Test <with> "quotes"'
+          }
+        ]
+      }
+
+      const rss = generateRSS(feedWithSpecialChars)
+
+      // Should parse without errors
+      const parsedFeed = await parser.parseString(rss)
+
+      // Verify the parsed feed has the correct titles
+      expect(parsedFeed.title).toBe('Test & Podcast <with> "quotes"')
+      expect(parsedFeed.items[0].title).toBe('Episode & Test <with> "quotes"')
+    })
+
+    it('should include all required RSS elements', async () => {
+      const rss = generateRSS(mockFeed)
+      const parsedFeed = await parser.parseString(rss)
+
+      // Check for required RSS 2.0 elements
+      expect(parsedFeed.title).toBeDefined()
+      expect(parsedFeed.description).toBeDefined()
+      expect(parsedFeed.link).toBeDefined()
+      expect(parsedFeed.lastBuildDate).toBeDefined()
+      expect(parsedFeed.generator).toBeDefined()
+
+      // Check that items have required fields
+      const item = parsedFeed.items[0]
+      expect(item.title).toBeDefined()
+      expect(item.link).toBeDefined()
+      expect(item.guid).toBeDefined()
+      expect(item.pubDate).toBeDefined()
     })
   })
 }) 

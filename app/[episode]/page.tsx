@@ -10,10 +10,10 @@ import Listen from "@/components/Listen";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import DownloadBar from "@/components/DownloadBar";
-import AudioCardComponent from "@/components/AudioCard";
 import ShowNotes from "@/components/ShowNotes";
 import EpisodeNavigation from "@/components/EpisodeNavigation";
 import { defaultImage, url } from "@/util/constants";
+import AudioCardWrapper from "@/components/AudioCardWrapper";
 
 interface EpisodePageProps {
   params: Promise<{ episode: string }>;
@@ -123,7 +123,7 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
             </div>
           )}
 
-          <AudioCardComponent episode={ep} />
+          <AudioCardWrapper episode={ep} />
 
           <ShowNotes episode={ep} />
 
