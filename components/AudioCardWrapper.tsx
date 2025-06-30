@@ -1,5 +1,3 @@
-"use client";
-
 import AudioCardComponent from "./AudioCard";
 import type { Episode } from "../lib/episodes";
 

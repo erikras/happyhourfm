@@ -1,6 +1,3 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import AudioCard from "audiocard";
 import { prefixMp3 } from "../util/prefixMp3";
 import type { Episode } from "../lib/episodes";
@@ -18,36 +15,10 @@ export default function AudioCardComponent({
   linkToShowNotes,
   autoPlay,
 }: Props) {
-  const [isClient, setIsClient] = useState(false);
   const audioUrl = prefixMp3(`${episode.frontmatter.slug}.mp3`);
   const imageUrl =
     image ||
     (episode.frontmatter.art ? `/${episode.frontmatter.art}` : "/art.jpg");
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  // Show a loading placeholder until client-side rendering is ready
-  if (!isClient) {
-    return (
-      <div className="w-full mb-6">
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-gray-200 rounded-lg animate-pulse"></div>
-            <div className="flex-1">
-              <div className="h-4 bg-gray-200 rounded animate-pulse mb-2"></div>
-              <div className="h-3 bg-gray-200 rounded animate-pulse w-3/4"></div>
-            </div>
-          </div>
-          <div className="mt-4">
-            <div className="h-2 bg-gray-200 rounded animate-pulse mb-2"></div>
-            <div className="h-2 bg-gray-200 rounded animate-pulse w-2/3"></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="w-full mb-6">

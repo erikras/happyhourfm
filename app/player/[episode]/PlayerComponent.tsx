@@ -1,6 +1,3 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import AudioCard from "audiocard";
 import { prefixMp3 } from "../../../util/prefixMp3";
 import type { Episode } from "../../../lib/episodes";
@@ -10,20 +7,6 @@ interface PlayerComponentProps {
 }
 
 export default function PlayerComponent({ episode }: PlayerComponentProps) {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return (
-      <div className="w-full h-full bg-white flex items-center justify-center">
-        <div className="text-gray-500">Loading...</div>
-      </div>
-    );
-  }
-
   const audioUrl = prefixMp3(`${episode.frontmatter.slug}.mp3`);
   const imageUrl = episode.frontmatter.art
     ? `https://happyhour.fm/${episode.frontmatter.art}`
