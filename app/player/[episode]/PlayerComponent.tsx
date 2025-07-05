@@ -18,7 +18,7 @@ export default function PlayerComponent({ episode }: PlayerComponentProps) {
         title={episode.frontmatter.title}
         art={imageUrl}
         source={audioUrl}
-        autoPlay={false}
+        autoplay={false}
         color="#cc9966"
         background="#FFFFFF"
         progressBarBackground="#E5E7EB"
