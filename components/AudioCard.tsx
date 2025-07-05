@@ -26,7 +26,7 @@ export default function AudioCardComponent({
         title={episode.frontmatter.title}
         art={imageUrl}
         source={audioUrl}
-        autoPlay={autoPlay}
+        autoplay={autoPlay}
         color="#cc9966"
         background="#FFFFFF"
         progressBarBackground="#E5E7EB"
