@@ -139,10 +139,10 @@ function generateRSS(feed: RSSFeed): string {
     const decoratedMp3URL = decorateURL(episode.mp3URL)
     const mp3Path = path.join(process.cwd(), 'public', episode.mp3URL)
     const enclosureLength = getMp3Size(mp3Path)
-    
+
     // Create unique GUID using episode number and URL
     const uniqueGuid = `${feed.link}/episode/${episode.episode}`
-    
+
     // Use channel explicit setting if episode doesn't have one set
     const episodeExplicit = episode.explicit !== undefined ? episode.explicit : feed.explicit
 
