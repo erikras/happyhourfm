@@ -2,11 +2,18 @@
   command = "pnpm install && pnpm run build"
   publish = ".next"
 
+# Ensure the RSS file is served as-is
 [[redirects]]
 from = "/rss.xml"
 to = "/rss.xml"
 status = 200
 force = true
+
+# Correct content type
+[[headers]]
+for = "/rss.xml"
+[headers.values]
+Content-Type = "application/rss+xml; charset=utf-8"
 
 [build.environment]
   NODE_VERSION = "22"
@@ -15,8 +22,4 @@ force = true
 [[plugins]]
   package = "@netlify/plugin-nextjs"
   pinned_version = "5.11.4" 
-
-[[headers]]
-for = "/rss.xml"
-[headers.values]
-Content-Type = "application/rss+xml; charset=utf-8"
+  

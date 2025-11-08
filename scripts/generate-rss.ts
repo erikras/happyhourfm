@@ -113,19 +113,17 @@ function generateRSS(feed: RSSFeed): string {
         <lastBuildDate>${now}</lastBuildDate>
         <docs>${escapeXml(feed.link)}</docs>
         <generator>Custom RSS Generator</generator>
-        <itunes:summary>${escapeXml(feed.title)}</itunes:summary>
+        <itunes:summary>${escapeXml(feed.description)}</itunes:summary>
         <itunes:author>${escapeXml(feed.author)}</itunes:author>
         <itunes:keywords>${feed.keywords.join(',')}</itunes:keywords>
-        <itunes:category text="Comedy"/>
-        <itunes:category text="News &amp; Politics"/>
+        <itunes:category text="Comedy">
+            <itunes:category text="Comedy Interviews"/>
+        </itunes:category>
+        <itunes:category text="News">
+            <itunes:category text="News Commentary"/>
+        </itunes:category>
         <itunes:category text="Society &amp; Culture">
             <itunes:category text="Philosophy"/>
-        </itunes:category>
-        <itunes:category text="Society &amp; Culture">
-            <itunes:category text="Places &amp; Travel"/>
-        </itunes:category>
-        <itunes:category text="Sports &amp; Recreation">
-            <itunes:category text="TV &amp; Film"/>
         </itunes:category>
         <itunes:image href="${escapeXml(feed.image)}"/>
         <itunes:explicit>${feed.explicit ? 'yes' : 'no'}</itunes:explicit>
@@ -141,20 +139,28 @@ function generateRSS(feed: RSSFeed): string {
     const decoratedMp3URL = decorateURL(episode.mp3URL)
     const mp3Path = path.join(process.cwd(), 'public', episode.mp3URL)
     const enclosureLength = getMp3Size(mp3Path)
+    
+    // Create unique GUID using episode number and URL
+    const uniqueGuid = `${feed.link}/episode/${episode.episode}`
+    
+    // Use channel explicit setting if episode doesn't have one set
+    const episodeExplicit = episode.explicit !== undefined ? episode.explicit : feed.explicit
 
     rss += `
         <item>
             <title><![CDATA[${episode.title}]]></title>
             <link><![CDATA[${decoratedMp3URL}]]></link>
-            <guid>${decoratedMp3URL}</guid>
+            <guid isPermaLink="false">${uniqueGuid}</guid>
             <pubDate>${formatDate(episode.date)}</pubDate>
             <description><![CDATA[${episode.body}]]></description>
             <content:encoded><![CDATA[${episode.body}]]></content:encoded>
             <author>${author.email} (${escapeXml(feed.author)})</author>
             <enclosure length="${enclosureLength}" type="audio/mpeg" url="${decoratedMp3URL}"/>
             <itunes:duration>${episode.duration ? formatDuration(episode.duration) : '00:00'}</itunes:duration>
-            <itunes:explicit>${episode.explicit ? 'yes' : 'no'}</itunes:explicit>
+            <itunes:explicit>${episodeExplicit ? 'yes' : 'no'}</itunes:explicit>
             <itunes:subtitle><![CDATA[${episode.description}]]></itunes:subtitle>
+            <itunes:summary><![CDATA[${episode.description}]]></itunes:summary>
+            <itunes:author>${escapeXml(feed.author)}</itunes:author>
             <itunes:episodeType>full</itunes:episodeType>
             <itunes:episode>${episode.episode}</itunes:episode>
         </item>`
@@ -186,7 +192,7 @@ async function generateRSSFeed(): Promise<void> {
         description: content.frontmatter.description,
         body: `<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>\n${chopBeforeSummary(content.body)}\n<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>`,
         duration: 0,
-        explicit: false
+        explicit: true // Match channel explicit setting
       }
 
       // Get MP3 duration
