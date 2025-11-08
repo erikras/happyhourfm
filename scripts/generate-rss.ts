@@ -20,6 +20,7 @@ interface Episode {
   body: string
   duration: number
   explicit?: boolean
+  slug: string
 }
 
 interface RSSFeed {
@@ -140,6 +141,9 @@ function generateRSS(feed: RSSFeed): string {
     const mp3Path = path.join(process.cwd(), 'public', episode.mp3URL)
     const enclosureLength = getMp3Size(mp3Path)
 
+    // Create episode page URL (webpage, not audio file)
+    const episodePageURL = `${feed.link}/${episode.slug}`
+
     // Create unique GUID using episode number and URL
     const uniqueGuid = `${feed.link}/episode/${episode.episode}`
 
@@ -149,7 +153,7 @@ function generateRSS(feed: RSSFeed): string {
     rss += `
         <item>
             <title><![CDATA[${episode.title}]]></title>
-            <link><![CDATA[${decoratedMp3URL}]]></link>
+            <link><![CDATA[${episodePageURL}]]></link>
             <guid isPermaLink="false">${uniqueGuid}</guid>
             <pubDate>${formatDate(episode.date)}</pubDate>
             <description><![CDATA[${episode.body}]]></description>
@@ -183,6 +187,8 @@ async function generateRSSFeed(): Promise<void> {
     for (const content of contents) {
       // Handle optional episode number
       const episodeNumber = content.frontmatter.episode ?? 0
+      // Get slug from frontmatter (already added by content.ts)
+      const slug = content.frontmatter.slug || path.basename(content.filepath, '.md')
 
       const episode: Episode = {
         title: content.frontmatter.title,
@@ -192,7 +198,8 @@ async function generateRSSFeed(): Promise<void> {
         description: content.frontmatter.description,
         body: `<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>\n${chopBeforeSummary(content.body)}\n<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>`,
         duration: 0,
-        explicit: true // Match channel explicit setting
+        explicit: true, // Match channel explicit setting
+        slug
       }
 
       // Get MP3 duration
