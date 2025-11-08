@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { defaultImage, description, title, url } from '../util/constants'
 import contents from '../util/content'
-import { prefixes } from '../util/prefixMp3'
+import { prefixes, prefixMp3 } from '../util/prefixMp3'
 
 // Import author values from the original script
 const author = {
@@ -36,11 +36,11 @@ interface RSSFeed {
   episodes: Episode[]
 }
 
-const decorateURL = (url: string) =>
-  `https://${prefixes.reduce(
-    (result, prefix) => `${prefix}${result}`,
-    url.substring(8) // remove https://
-  )}`
+const decorateURL = (mp3Path: string) => {
+  // Extract just the filename from the path (e.g., "media/264.mp3" -> "264.mp3")
+  const filename = path.basename(mp3Path)
+  return prefixMp3(filename)
+}
 
 function escapeXml(text: string): string {
   return text
