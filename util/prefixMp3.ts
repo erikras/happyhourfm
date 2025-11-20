@@ -1,6 +1,5 @@
 export const prefixes = [
   'dts.podtrac.com/redirect.mp3/',
-  'chtbl.com/track/73173/',
   'pdcn.co/e/',
 ]
 
