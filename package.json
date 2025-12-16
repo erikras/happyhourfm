@@ -21,11 +21,11 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "audiocard": "^3.0.7",
-    "next": "^15.3.4",
+    "audiocard": "^3.0.8",
+    "next": "^16.0.10",
     "qs": "^6.14.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.6",
