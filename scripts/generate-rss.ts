@@ -212,14 +212,15 @@ function generateRSS(feed: RSSFeed): string {
             <content:encoded><![CDATA[${episode.body}]]></content:encoded>
             <author>${author.email} (${escapeXml(feed.author)})</author>
             <enclosure length="${enclosureLength}" type="audio/mpeg" url="${decoratedMp3URL}"/>
-        <itunes:image href="${escapeXml(episodeArtUrl)}"/>
-        <itunes:duration>${episodeDurationSeconds}</itunes:duration>
-        <itunes:explicit>${episodeExplicit ? 'true' : 'false'}</itunes:explicit>
+            <itunes:image href="${escapeXml(episodeArtUrl)}"/>
+            <itunes:duration>${episodeDurationSeconds}</itunes:duration>
+            <itunes:explicit>${episodeExplicit ? 'true' : 'false'}</itunes:explicit>
             <itunes:subtitle><![CDATA[${episode.description}]]></itunes:subtitle>
             <itunes:summary><![CDATA[${episode.description}]]></itunes:summary>
             <itunes:author>${escapeXml(feed.author)}</itunes:author>
-        <itunes:episodeType>${episode.episodeType ?? 'full'}</itunes:episodeType>
-        <itunes:episode>${episode.episode}</itunes:episode>`
+            <itunes:episodeType>${episode.episodeType ?? 'full'}</itunes:episodeType>
+            <itunes:episode>${episode.episode}</itunes:episode>
+            <podcast:transcript url="${escapeXml(episodePageURL)}" type="text/html"/>`
 
     if (episode.season) {
       rss += `
