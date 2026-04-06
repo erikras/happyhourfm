@@ -10,7 +10,9 @@
 /build
 /dist
 /.next
+/out
 .netlify
+.cloudflare-build-media-*
 
 # misc
 .DS_Store

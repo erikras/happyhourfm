@@ -1,10 +1,18 @@
-import { notFound } from "next/navigation";
-import type { Metadata } from "next";
-import { getEpisode } from "../../../lib/episodes";
-import PlayerComponent from "./PlayerComponent";
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { getAllEpisodeSlugs, getEpisode } from '../../../lib/episodes';
+import PlayerComponent from './PlayerComponent';
 
 interface PlayerPageProps {
   params: Promise<{ episode: string }>;
+}
+
+export async function generateStaticParams() {
+  const slugs = await getAllEpisodeSlugs();
+
+  return slugs.map((slug) => ({
+    episode: slug,
+  }));
 }
 
 export async function generateMetadata({
@@ -15,7 +23,7 @@ export async function generateMetadata({
 
   if (!episode) {
     return {
-      title: "Episode Not Found",
+      title: 'Episode Not Found',
     };
   }
 
@@ -23,7 +31,7 @@ export async function generateMetadata({
   const description = episode.frontmatter.description;
   const imageUrl = episode.frontmatter.art
     ? `https://happyhour.fm/${episode.frontmatter.art}`
-    : "https://happyhour.fm/art.jpg";
+    : 'https://happyhour.fm/art.jpg';
 
   return {
     title,
@@ -39,16 +47,16 @@ export async function generateMetadata({
           alt: title,
         },
       ],
-      type: "article",
-      siteName: "Happy Hour with Dennis and Erik",
+      type: 'article',
+      siteName: 'Happy Hour with Dennis and Erik',
     },
     twitter: {
-      card: "player",
+      card: 'player',
       title,
       description,
       images: [imageUrl],
-      creator: "@happyhourdotfm",
-      site: "@happyhourdotfm",
+      creator: '@happyhourdotfm',
+      site: '@happyhourdotfm',
     },
   };
 }

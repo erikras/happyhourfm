@@ -1,19 +1,18 @@
-import { notFound } from "next/navigation";
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import AudioCardWrapper from '@/components/AudioCardWrapper';
+import DownloadBar from '@/components/DownloadBar';
+import EpisodeNavigation from '@/components/EpisodeNavigation';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import Listen from '@/components/Listen';
+import ShowNotes from '@/components/ShowNotes';
 import {
-  getEpisode,
   getAllEpisodeSlugs,
+  getEpisode,
   getNextEpisode,
   getPreviousEpisode,
-} from "@/lib/episodes";
-import Listen from "@/components/Listen";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import DownloadBar from "@/components/DownloadBar";
-import ShowNotes from "@/components/ShowNotes";
-import EpisodeNavigation from "@/components/EpisodeNavigation";
-import { defaultImage, url } from "@/util/constants";
-import AudioCardWrapper from "@/components/AudioCardWrapper";
+} from '@/lib/episodes';
 
 interface EpisodePageProps {
   params: Promise<{ episode: string }>;
@@ -34,7 +33,7 @@ export async function generateMetadata({
 
   if (!ep) {
     return {
-      title: "Episode Not Found",
+      title: 'Episode Not Found',
     };
   }
 
@@ -42,7 +41,7 @@ export async function generateMetadata({
   const description = ep.frontmatter.description;
   const imageUrl = ep.frontmatter.art
     ? `https://happyhour.fm/${ep.frontmatter.art}`
-    : "https://happyhour.fm/art.jpg";
+    : 'https://happyhour.fm/art.jpg';
   const playerUrl = `https://happyhour.fm/player/${ep.frontmatter.slug}`;
 
   return {
@@ -59,22 +58,22 @@ export async function generateMetadata({
           alt: title,
         },
       ],
-      type: "article",
-      siteName: "Happy Hour with Dennis and Erik",
+      type: 'article',
+      siteName: 'Happy Hour with Dennis and Erik',
     },
     twitter: {
-      card: "player",
+      card: 'player',
       title,
       description,
       images: [imageUrl],
-      creator: "@happyhourdotfm",
-      site: "@happyhourdotfm",
+      creator: '@happyhourdotfm',
+      site: '@happyhourdotfm',
     },
     other: {
-      "twitter:player": playerUrl,
-      "twitter:player:width": "480",
-      "twitter:player:height": "200",
-      "twitter:image:alt": `Cover art for ${title}`,
+      'twitter:player': playerUrl,
+      'twitter:player:width': '480',
+      'twitter:player:height': '200',
+      'twitter:image:alt': `Cover art for ${title}`,
     },
   };
 }

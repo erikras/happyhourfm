@@ -1,54 +1,56 @@
-import crypto from 'node:crypto'
-import fs from 'node:fs'
-import path from 'node:path'
-import { defaultImage, description, title, url } from '../util/constants'
-import contents from '../util/content'
-import { prefixMp3 } from '../util/prefixMp3'
+import crypto from 'node:crypto';
+import fs from 'node:fs';
+import path from 'node:path';
+import { defaultImage, description, title, url } from '../util/constants';
+import contents from '../util/content';
+import { getMediaMetadata, loadMediaManifest } from '../util/mediaManifest';
+import { prefixMp3 } from '../util/prefixMp3';
 
 // Import author values from the original script
 const author = {
   name: 'Erik Rasmussen and Dennis Schrantz',
   email: 'happyhourdotfm@gmail.com',
   link: url,
-} as const
+} as const;
 
 interface Episode {
-  title: string
-  episode: number
-  date: string
-  mp3URL: string
-  art?: string
-  description: string
-  body: string
-  duration: number
-  explicit?: boolean
-  episodeType?: 'full' | 'trailer' | 'bonus'
-  season?: number
-  slug: string
+  title: string;
+  episode: number;
+  date: string;
+  mp3URL: string;
+  sizeBytes: number;
+  art?: string;
+  description: string;
+  body: string;
+  duration: number;
+  explicit?: boolean;
+  episodeType?: 'full' | 'trailer' | 'bonus';
+  season?: number;
+  slug: string;
 }
 
 interface RSSFeed {
-  title: string
-  description: string
-  link: string
-  language: string
-  copyright: string
-  author: string
-  image: string
-  explicit: boolean
-  keywords: string[]
-  categories: string[]
-  episodes: Episode[]
+  title: string;
+  description: string;
+  link: string;
+  language: string;
+  copyright: string;
+  author: string;
+  image: string;
+  explicit: boolean;
+  keywords: string[];
+  categories: string[];
+  episodes: Episode[];
 }
 
-const PODCAST_NAMESPACE = 'ead4c236-bf58-58c6-a2c6-a6b28d128cb6'
-const canonicalFeedUrl = 'https://www.happyhour.fm/rss.xml'
+const PODCAST_NAMESPACE = 'ead4c236-bf58-58c6-a2c6-a6b28d128cb6';
+const canonicalFeedUrl = 'https://www.happyhour.fm/rss.xml';
 
 const decorateURL = (mp3Path: string) => {
   // Extract just the filename from the path (e.g., "media/264.mp3" -> "264.mp3")
-  const filename = path.basename(mp3Path)
-  return prefixMp3(filename)
-}
+  const filename = path.basename(mp3Path);
+  return prefixMp3(filename);
+};
 
 function escapeXml(text: string): string {
   return text
@@ -56,93 +58,68 @@ function escapeXml(text: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;')
+    .replace(/'/g, '&apos;');
 }
 
 function formatDate(dateString: string): string {
-  const date = new Date(dateString)
-  if (isNaN(date.getTime())) {
-    throw new Error(`Invalid date: ${dateString}`)
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) {
+    throw new Error(`Invalid date: ${dateString}`);
   }
-  return date.toUTCString()
+  return date.toUTCString();
 }
 
 function formatDuration(seconds: number): string {
-  const hours = Math.floor(seconds / 3600)
-  const minutes = Math.floor((seconds % 3600) / 60)
-  const secs = Math.floor(seconds % 60)
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = Math.floor(seconds % 60);
 
   if (hours > 0) {
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   }
-  return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+  return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
 function toAbsoluteUrl(relativeOrAbsolute: string, baseUrl: string): string {
   if (/^https?:\/\//i.test(relativeOrAbsolute)) {
-    return relativeOrAbsolute
+    return relativeOrAbsolute;
   }
-  return `${baseUrl.replace(/\/$/, '')}/${relativeOrAbsolute.replace(/^\//, '')}`
+  return `${baseUrl.replace(/\/$/, '')}/${relativeOrAbsolute.replace(/^\//, '')}`;
 }
 
 function uuidToBytes(uuid: string): Buffer {
-  const hex = uuid.replace(/-/g, '')
-  return Buffer.from(hex, 'hex')
+  const hex = uuid.replace(/-/g, '');
+  return Buffer.from(hex, 'hex');
 }
 
 function bytesToUuid(buffer: Buffer): string {
-  const hex = buffer.toString('hex')
+  const hex = buffer.toString('hex');
   return [
     hex.substring(0, 8),
     hex.substring(8, 12),
     hex.substring(12, 16),
     hex.substring(16, 20),
     hex.substring(20, 32),
-  ].join('-')
+  ].join('-');
 }
 
 function uuidV5(name: string, namespace: string): string {
-  const namespaceBytes = uuidToBytes(namespace)
-  const nameBytes = Buffer.from(name, 'utf8')
-  const hash = crypto.createHash('sha1').update(Buffer.concat([namespaceBytes, nameBytes])).digest()
+  const namespaceBytes = uuidToBytes(namespace);
+  const nameBytes = Buffer.from(name, 'utf8');
+  const hash = crypto
+    .createHash('sha1')
+    .update(Buffer.concat([namespaceBytes, nameBytes]))
+    .digest();
 
-  hash[6] = (hash[6] & 0x0f) | 0x50
-  hash[8] = (hash[8] & 0x3f) | 0x80
+  hash[6] = (hash[6] & 0x0f) | 0x50;
+  hash[8] = (hash[8] & 0x3f) | 0x80;
 
-  return bytesToUuid(hash.subarray(0, 16))
-}
-
-function getMp3Duration(mp3Path: string): Promise<number> {
-  return new Promise((resolve) => {
-    try {
-      const mp3Duration = require('mp3-duration')
-      mp3Duration(mp3Path, (err: any, duration: number) => {
-        if (err) {
-          console.warn(`Could not get duration for ${mp3Path}:`, err.message)
-          resolve(0)
-        } else {
-          resolve(duration || 0)
-        }
-      })
-    } catch (error) {
-      console.warn(`mp3-duration not available, using 0 for ${mp3Path}`)
-      resolve(0)
-    }
-  })
-}
-
-function getMp3Size(mp3Path: string): number {
-  try {
-    return fs.statSync(mp3Path).size
-  } catch (error) {
-    console.warn(`Could not get size for ${mp3Path}`)
-    return 0
-  }
+  return bytesToUuid(hash.subarray(0, 16));
 }
 
 function generateRSS(feed: RSSFeed): string {
-  const now = new Date().toUTCString()
-  const feedGuid = uuidV5(canonicalFeedUrl, PODCAST_NAMESPACE)
+  const now = new Date().toUTCString();
+  const feedGuid = uuidV5(canonicalFeedUrl, PODCAST_NAMESPACE);
 
   let rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -178,29 +155,28 @@ function generateRSS(feed: RSSFeed): string {
         <itunes:type>episodic</itunes:type>
         <podcast:guid>${feedGuid}</podcast:guid>
         <podcast:locked>yes</podcast:locked>
-        <copyright>${escapeXml(feed.copyright)}</copyright>`
+        <copyright>${escapeXml(feed.copyright)}</copyright>`;
 
   // Add episodes
-  feed.episodes.forEach(episode => {
-    const decoratedMp3URL = decorateURL(episode.mp3URL)
-    const mp3Path = path.join(process.cwd(), 'public', episode.mp3URL)
-    const enclosureLength = getMp3Size(mp3Path)
+  feed.episodes.forEach((episode) => {
+    const decoratedMp3URL = decorateURL(episode.mp3URL);
     const episodeArtUrl = episode.art
       ? toAbsoluteUrl(episode.art, feed.link)
-      : feed.image
+      : feed.image;
     const episodeDurationSeconds =
       Number.isFinite(episode.duration) && episode.duration > 0
         ? Math.round(episode.duration)
-        : 0
+        : 0;
 
     // Create episode page URL (webpage, not audio file)
-    const episodePageURL = `${feed.link}/${episode.slug}`
+    const episodePageURL = `${feed.link}/${episode.slug}`;
 
     // Create unique GUID using episode number and URL
-    const uniqueGuid = `${feed.link}/episode/${episode.episode}`
+    const uniqueGuid = `${feed.link}/episode/${episode.episode}`;
 
     // Use channel explicit setting if episode doesn't have one set
-    const episodeExplicit = episode.explicit !== undefined ? episode.explicit : feed.explicit
+    const episodeExplicit =
+      episode.explicit !== undefined ? episode.explicit : feed.explicit;
 
     rss += `
         <item>
@@ -211,7 +187,7 @@ function generateRSS(feed: RSSFeed): string {
             <description><![CDATA[${episode.body}]]></description>
             <content:encoded><![CDATA[${episode.body}]]></content:encoded>
             <author>${author.email} (${escapeXml(feed.author)})</author>
-            <enclosure length="${enclosureLength}" type="audio/mpeg" url="${decoratedMp3URL}"/>
+            <enclosure length="${episode.sizeBytes}" type="audio/mpeg" url="${decoratedMp3URL}"/>
             <itunes:image href="${escapeXml(episodeArtUrl)}"/>
             <itunes:duration>${episodeDurationSeconds}</itunes:duration>
             <itunes:explicit>${episodeExplicit ? 'true' : 'false'}</itunes:explicit>
@@ -220,62 +196,64 @@ function generateRSS(feed: RSSFeed): string {
             <itunes:author>${escapeXml(feed.author)}</itunes:author>
             <itunes:episodeType>${episode.episodeType ?? 'full'}</itunes:episodeType>
             <itunes:episode>${episode.episode}</itunes:episode>
-            <podcast:transcript url="${escapeXml(episodePageURL)}" type="text/html"/>`
+            <podcast:transcript url="${escapeXml(episodePageURL)}" type="text/html"/>`;
 
     if (episode.season) {
       rss += `
-        <itunes:season>${episode.season}</itunes:season>`
+        <itunes:season>${episode.season}</itunes:season>`;
     }
 
     rss += `
-        </item>`
-  })
+        </item>`;
+  });
 
   rss += `
     </channel>
-</rss>`
+</rss>`;
 
-  return rss
+  return rss;
 }
 
 async function generateRSSFeed(): Promise<void> {
   try {
-    console.log('Generating RSS feed...')
+    console.log('Generating RSS feed...');
+    const mediaManifest = loadMediaManifest();
 
     // Process episodes
-    const episodes: Episode[] = []
+    const episodes: Episode[] = [];
 
     for (const content of contents) {
       // Handle optional episode number
-      const episodeNumber = content.frontmatter.episode ?? 0
+      const episodeNumber = content.frontmatter.episode ?? 0;
       // Get slug from frontmatter (already added by content.ts)
-      const slug = content.frontmatter.slug || path.basename(content.filepath, '.md')
+      const slug =
+        content.frontmatter.slug || path.basename(content.filepath, '.md');
+      const mediaMetadata = getMediaMetadata(
+        mediaManifest,
+        content.frontmatter.mp3URL
+      );
 
       const episode: Episode = {
         title: content.frontmatter.title,
         episode: episodeNumber,
         date: content.frontmatter.date,
         mp3URL: content.frontmatter.mp3URL,
+        sizeBytes: mediaMetadata.sizeBytes,
         art: content.frontmatter.art,
         description: content.frontmatter.description,
         body: `<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>\n${chopBeforeSummary(content.body)}\n<h3 style="text-align:center;"><a href="https://www.patreon.com/happyhour" rel="payment">Buy a round! Become a Patron!</a></h3>`,
-        duration: 0,
+        duration: mediaMetadata.durationSeconds,
         explicit: true, // Match channel explicit setting
         episodeType: content.frontmatter.episodeType,
         season: content.frontmatter.season,
-        slug
-      }
+        slug,
+      };
 
-      // Get MP3 duration
-      const mp3Path = path.join(process.cwd(), 'public', content.frontmatter.mp3URL)
-      const duration = await getMp3Duration(mp3Path)
-      episode.duration = duration
-
-      episodes.push(episode)
+      episodes.push(episode);
     }
 
     // Sort episodes by episode number (newest first)
-    episodes.sort((a, b) => b.episode - a.episode)
+    episodes.sort((a, b) => b.episode - a.episode);
 
     const feed: RSSFeed = {
       title,
@@ -288,29 +266,31 @@ async function generateRSSFeed(): Promise<void> {
       explicit: true,
       keywords: ['Comedy'],
       categories: ['Comedy', 'News & Politics', 'Society & Culture'],
-      episodes
-    }
+      episodes,
+    };
 
-    const rssContent = generateRSS(feed)
-    fs.writeFileSync('public/rss.xml', rssContent)
+    const rssContent = generateRSS(feed);
+    fs.writeFileSync('public/rss.xml', rssContent);
 
-    console.log(`RSS feed generated with ${episodes.length} episodes`)
-    console.log('Episode dates:', episodes.map(e => `${e.episode}: ${formatDate(e.date)}`))
-
+    console.log(`RSS feed generated with ${episodes.length} episodes`);
+    console.log(
+      'Episode dates:',
+      episodes.map((e) => `${e.episode}: ${formatDate(e.date)}`)
+    );
   } catch (error) {
-    console.error('Error generating RSS feed:', error)
-    throw error
+    console.error('Error generating RSS feed:', error);
+    throw error;
   }
 }
 
 function chopBeforeSummary(body: string): string {
-  const indexOfSummary = body.indexOf('\n<h2>Summary</h2>')
-  return indexOfSummary === -1 ? body : body.slice(0, indexOfSummary)
+  const indexOfSummary = body.indexOf('\n<h2>Summary</h2>');
+  return indexOfSummary === -1 ? body : body.slice(0, indexOfSummary);
 }
 
 // Run if called directly
 if (require.main === module) {
-  generateRSSFeed().catch(console.error)
+  generateRSSFeed().catch(console.error);
 }
 
-export { generateRSSFeed, generateRSS, formatDate, formatDuration } 
+export { generateRSSFeed, generateRSS, formatDate, formatDuration };

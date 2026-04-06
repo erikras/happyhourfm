@@ -7,7 +7,8 @@
   },
   "scripts": {
     "dev": "NODE_OPTIONS='--openssl-legacy-provider' next dev",
-    "build": "next build && pnpm generate-sitemap && pnpm generate-rss",
+    "build": "pnpm generate-sitemap && pnpm generate-rss && pnpm build:static",
+    "build:static": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/build-static-site.ts",
     "start": "next start",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
@@ -15,6 +16,7 @@
     "format:fix": "biome format --write .",
     "check": "biome check .",
     "check:fix": "biome check --write .",
+    "generate-media-manifest": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-media-manifest.ts",
     "generate-sitemap": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-sitemap.ts",
     "generate-rss": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-rss.ts",
     "test": "vitest run",

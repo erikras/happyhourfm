@@ -30,9 +30,22 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.json"],
+    "includes": [
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.json",
+      "!**/.next",
+      "!**/.next/**",
+      "!**/.netlify",
+      "!**/.netlify/**",
+      "!**/out",
+      "!**/out/**"
+    ],
     "experimentalScannerIgnores": [
       ".next/**",
+      ".netlify/**",
       "node_modules/**",
       "dist/**",
       "build/**",
