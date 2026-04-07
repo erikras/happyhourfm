@@ -19,8 +19,6 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_PAGES_PROJECT: happyhour-fm
-      CLOUDFLARE_R2_BUCKET: happyhour-media
-      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
     steps:
       - name: Check out repository
@@ -53,75 +51,8 @@ jobs:
             exit 1
           fi
 
-          if [[ -z "${NETLIFY_AUTH_TOKEN:-}" ]]; then
-            echo "Missing NETLIFY_AUTH_TOKEN GitHub secret" >&2
-            exit 1
-          fi
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Install Wrangler
-        run: npm install --global wrangler@4.80.0
-
-      - name: Install Git LFS
-        run: git lfs install --local
-
-      - name: Configure Netlify Large Media auth
-        run: |
-          set -euo pipefail
-
-          cat <<'EOF' > "$HOME/.git-credential-netlify-actions"
-          #!/usr/bin/env bash
-          if [[ "${1:-}" == "get" ]]; then
-            echo "username=access-token"
-            echo "password=${NETLIFY_AUTH_TOKEN}"
-          fi
-          EOF
-
-          chmod 700 "$HOME/.git-credential-netlify-actions"
-
-          git config --local credential.helper ""
-          git config --local credential.helper "!$HOME/.git-credential-netlify-actions"
-          git config --local lfs.https://844123f3-5a38-4a31-b03b-b2e596b5a244.netlify.app/.netlify/large-media.access basic
-          git config --local lfs.https://844123f3-5a38-4a31-b03b-b2e596b5a244.netlify.app/.netlify/large-media.locksverify false
-
-      - name: Fetch artwork from Git LFS
-        run: git lfs pull --include="public/media/*" --exclude="public/media/*.mp3"
-
-      - name: Find changed MP3 files
-        id: changed_media
-        run: |
-          set -euo pipefail
-
-          before="${{ github.event.before }}"
-
-          if [[ -n "$before" && "$before" != "0000000000000000000000000000000000000000" ]]; then
-            git diff --name-only "$before" "${{ github.sha }}" -- 'public/media/*.mp3' | sort > changed-media.txt
-            git diff --name-only "$before" "${{ github.sha }}" -- 'data/media-manifest.json' | sort > changed-manifest.txt
-          else
-            : > changed-media.txt
-            : > changed-manifest.txt
-          fi
-
-          if [[ -s changed-media.txt ]]; then
-            echo "has_changes=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-          fi
-
-          cat changed-media.txt
-
-      - name: Require media manifest update for changed MP3 files
-        if: steps.changed_media.outputs.has_changes == 'true'
-        run: |
-          set -euo pipefail
-
-          if [[ ! -s changed-manifest.txt ]]; then
-            echo "MP3 files changed without updating data/media-manifest.json." >&2
-            echo "Run pnpm generate-media-manifest before committing the episode." >&2
-            exit 1
-          fi
 
       - name: Run tests
         run: pnpm test
@@ -129,38 +60,8 @@ jobs:
       - name: Build static site
         run: pnpm build
 
-      - name: Verify exported media assets are real files
-        run: |
-          set -euo pipefail
-
-          if grep -RIl "version https://git-lfs.github.com/spec/v1" out/media; then
-            echo "Static export still contains Git LFS pointer files under out/media." >&2
-            exit 1
-          fi
-
-      - name: Upload changed MP3s to R2
-        if: steps.changed_media.outputs.has_changes == 'true'
-        run: |
-          set -euo pipefail
-
-          while IFS= read -r file; do
-            [[ -n "$file" ]] || continue
-            [[ -f "$file" ]] || continue
-
-            key="${file#public/}"
-            echo "Uploading $file to $key"
-
-            git lfs pull --include="$file" --exclude=""
-
-            wrangler r2 object put "$CLOUDFLARE_R2_BUCKET/$key" \
-              --file "$file" \
-              --remote \
-              --content-type audio/mpeg \
-              --cache-control "public, max-age=31536000, immutable"
-          done < changed-media.txt
-
       - name: Deploy Pages production site
         run: |
-          wrangler pages deploy out \
+          pnpm exec wrangler pages deploy out \
             --project-name "$CLOUDFLARE_PAGES_PROJECT" \
             --branch master

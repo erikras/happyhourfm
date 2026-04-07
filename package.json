@@ -17,6 +17,7 @@
     "check": "biome check .",
     "check:fix": "biome check --write .",
     "generate-media-manifest": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-media-manifest.ts",
+    "upload-audio-to-r2": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/upload-audio-to-r2.ts",
     "generate-sitemap": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-sitemap.ts",
     "generate-rss": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-rss.ts",
     "test": "vitest run",
@@ -49,6 +50,7 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4",
+    "wrangler": "4.80.0",
     "xml": "^1.0.1"
   }
 }

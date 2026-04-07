@@ -11,8 +11,8 @@
 /dist
 /.next
 /out
-.netlify
 .cloudflare-build-media-*
+public/media/*.mp3
 
 # misc
 .DS_Store

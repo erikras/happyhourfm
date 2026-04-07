@@ -7,7 +7,6 @@
 ## Development
 
 - `pnpm install`
-- `pnpm generate-media-manifest`
 - `pnpm build`
 
 ## Cloudflare deployment
@@ -16,9 +15,15 @@
 - Add these GitHub repository secrets before the first deploy:
 - `CLOUDFLARE_ACCOUNT_ID`
 - `CLOUDFLARE_API_TOKEN`
-- The Cloudflare token needs permission to deploy Pages and write objects to the `happyhour-media` R2 bucket.
-- The workflow regenerates `data/media-manifest.json`, uploads changed `public/media/*.mp3` files to R2, and deploys the static export in `out/` to Cloudflare Pages.
+- The Cloudflare token only needs permission to deploy Pages.
 - Attach both `happyhour.fm` and `www.happyhour.fm` to the Pages project.
-- Keep `public/media` artwork in the repo; the build now excludes only `public/media/*.mp3`.
-- Commit new episode MP3s before pushing to `master` so the workflow can upload them to R2 automatically.
-- Refresh `data/media-manifest.json` with `pnpm generate-media-manifest` before removing a local MP3 from `public/media`.
+- Keep `public/media` artwork in the repo.
+
+## Episode publishing
+
+- Episode audio now lives only in Cloudflare R2 and is no longer committed to git.
+- Log in locally with `pnpm exec wrangler login` before the first audio upload on a machine.
+- Put a local MP3 in `public/media/<episode>.mp3`.
+- Run `pnpm upload-audio-to-r2 public/media/<episode>.mp3`.
+- Commit the updated `data/media-manifest.json`, show notes, and artwork.
+- Push to `master` to deploy the site update to Cloudflare Pages.
