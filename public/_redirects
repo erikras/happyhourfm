@@ -1,1 +1,1 @@
-/media/* https://media.happyhour.fm/:splat 302
+/media/*.mp3 https://media.happyhour.fm/:splat.mp3 302
