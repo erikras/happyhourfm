@@ -58,14 +58,11 @@ jobs:
       - name: Install Wrangler
         run: npm install --global wrangler@4.80.0
 
-      - name: Regenerate media manifest
-        run: pnpm generate-media-manifest
+      - name: Install Git LFS
+        run: git lfs install --local
 
-      - name: Run tests
-        run: pnpm test
-
-      - name: Build static site
-        run: pnpm build
+      - name: Fetch artwork from Git LFS
+        run: git lfs pull --include="public/media/*" --exclude="public/media/*.mp3"
 
       - name: Find changed MP3 files
         id: changed_media
@@ -74,10 +71,12 @@ jobs:
 
           before="${{ github.event.before }}"
 
-          if [[ -z "$before" || "$before" == "0000000000000000000000000000000000000000" ]]; then
-            find public/media -maxdepth 1 -type f -name '*.mp3' | sort > changed-media.txt
-          else
+          if [[ -n "$before" && "$before" != "0000000000000000000000000000000000000000" ]]; then
             git diff --name-only "$before" "${{ github.sha }}" -- 'public/media/*.mp3' | sort > changed-media.txt
+            git diff --name-only "$before" "${{ github.sha }}" -- 'data/media-manifest.json' | sort > changed-manifest.txt
+          else
+            : > changed-media.txt
+            : > changed-manifest.txt
           fi
 
           if [[ -s changed-media.txt ]]; then
@@ -87,6 +86,32 @@ jobs:
           fi
 
           cat changed-media.txt
+
+      - name: Require media manifest update for changed MP3 files
+        if: steps.changed_media.outputs.has_changes == 'true'
+        run: |
+          set -euo pipefail
+
+          if [[ ! -s changed-manifest.txt ]]; then
+            echo "MP3 files changed without updating data/media-manifest.json." >&2
+            echo "Run pnpm generate-media-manifest before committing the episode." >&2
+            exit 1
+          fi
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Build static site
+        run: pnpm build
+
+      - name: Verify exported media assets are real files
+        run: |
+          set -euo pipefail
+
+          if grep -RIl "version https://git-lfs.github.com/spec/v1" out/media; then
+            echo "Static export still contains Git LFS pointer files under out/media." >&2
+            exit 1
+          fi
 
       - name: Upload changed MP3s to R2
         if: steps.changed_media.outputs.has_changes == 'true'
@@ -99,6 +124,8 @@ jobs:
 
             key="${file#public/}"
             echo "Uploading $file to $key"
+
+            git lfs pull --include="$file" --exclude=""
 
             wrangler r2 object put "$CLOUDFLARE_R2_BUCKET/$key" \
               --file "$file" \
