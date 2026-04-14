@@ -83,9 +83,10 @@ async function uploadAudioToR2(args: string[]): Promise<void> {
     }
 
     const filename = path.basename(filePath);
-    const key = `media/${filename}`;
+    const manifestKey = `media/${filename}`;
+    const objectKey = filename;
     const sizeBytes = fs.statSync(filePath).size;
-    const existingMetadata = manifest[key];
+    const existingMetadata = manifest[manifestKey];
     const shouldUpload =
       explicitFiles || !existingMetadata || existingMetadata.sizeBytes !== sizeBytes;
 
@@ -95,9 +96,9 @@ async function uploadAudioToR2(args: string[]): Promise<void> {
     }
 
     console.log(`Uploading ${filename} to R2...`);
-    uploadFileToR2(filePath, key);
+    uploadFileToR2(filePath, objectKey);
 
-    manifest[key] = await getMediaMetadataForFile(filePath);
+    manifest[manifestKey] = await getMediaMetadataForFile(filePath);
     uploadedCount += 1;
   }
 
