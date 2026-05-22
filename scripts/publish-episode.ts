@@ -1,6 +1,7 @@
 import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import frontMatter from 'front-matter';
 import { mediaManifestPath } from '../util/mediaManifest';
 import { uploadAudioToR2 } from './upload-audio-to-r2';
 
@@ -89,6 +90,17 @@ function ensureFileExists(filePath: string, label: string): void {
   }
 }
 
+function ensureShowNotesFrontMatterIsValid(filePath: string): void {
+  try {
+    frontMatter<Record<string, unknown>>(fs.readFileSync(filePath, 'utf-8'));
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(
+      `Show notes front matter is invalid in ${relativePath(filePath)}: ${message}`
+    );
+  }
+}
+
 function relativePath(filePath: string): string {
   return path.relative(process.cwd(), filePath);
 }
@@ -152,7 +164,7 @@ function getCommitPaths(paths: string[]): string[] {
   return Array.from(new Set(paths)).sort();
 }
 
-function ensureCommitHasChanges(paths: string[]): void {
+function hasStagedChanges(paths: string[]): boolean {
   const changedPaths = readCommandOutput('git', [
     'diff',
     '--cached',
@@ -161,9 +173,7 @@ function ensureCommitHasChanges(paths: string[]): void {
     ...paths,
   ]);
 
-  if (changedPaths.length === 0) {
-    throw new Error('Nothing to commit for this episode.');
-  }
+  return changedPaths.length > 0;
 }
 
 async function publishEpisode(argv: string[]): Promise<void> {
@@ -174,6 +184,7 @@ async function publishEpisode(argv: string[]): Promise<void> {
   const artworkPaths = getEpisodeArtworkPaths(slug);
 
   ensureFileExists(showNotesPath, 'Show notes');
+  ensureShowNotesFrontMatterIsValid(showNotesPath);
   ensureFileExists(mp3Path, 'MP3');
 
   if (artworkPaths.length === 0) {
@@ -212,7 +223,13 @@ async function publishEpisode(argv: string[]): Promise<void> {
   await uploadAudioToR2([mp3Path]);
 
   runCommand('git', ['add', '--', ...commitPaths], 'Staging episode files');
-  ensureCommitHasChanges(commitPaths);
+
+  if (!hasStagedChanges(commitPaths)) {
+    console.log(
+      `No repository changes needed. Episode ${commitEpisode} is already committed, so commit and push were skipped.`
+    );
+    return;
+  }
 
   runCommand(
     'git',
