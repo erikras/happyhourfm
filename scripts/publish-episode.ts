@@ -147,17 +147,11 @@ function getChangedPaths(): Set<string> {
   ]);
 }
 
-function ensureOnlyEpisodeChanges(allowedPaths: string[]): void {
+function getUnexpectedPaths(allowedPaths: string[]): string[] {
   const allowedPathSet = new Set(allowedPaths);
-  const unexpectedPaths = Array.from(getChangedPaths()).filter(
+  return Array.from(getChangedPaths()).filter(
     (changedPath) => !allowedPathSet.has(changedPath)
   );
-
-  if (unexpectedPaths.length > 0) {
-    throw new Error(
-      `Refusing to publish with unrelated changes present:\n${unexpectedPaths.join('\n')}`
-    );
-  }
 }
 
 function getCommitPaths(paths: string[]): string[] {
@@ -204,8 +198,7 @@ async function publishEpisode(argv: string[]): Promise<void> {
     relativePath(mediaManifestPath),
     ...artworkPaths.map(relativePath),
   ]);
-
-  ensureOnlyEpisodeChanges(commitPaths);
+  const unexpectedPaths = getUnexpectedPaths(commitPaths);
 
   console.log(`Publishing episode ${commitEpisode}`);
   console.log(`Show notes: ${relativePath(showNotesPath)}`);
@@ -214,6 +207,12 @@ async function publishEpisode(argv: string[]): Promise<void> {
     `Artwork: ${commitPaths.filter((filePath) => filePath.endsWith('.jpg')).join(', ')}`
   );
   console.log(`Commit message: Ep ${commitEpisode}`);
+
+  if (unexpectedPaths.length > 0) {
+    console.log(
+      `Ignoring unrelated local changes:\n${unexpectedPaths.join('\n')}`
+    );
+  }
 
   if (options.dryRun) {
     console.log('Dry run only. No upload, commit, or push performed.');
