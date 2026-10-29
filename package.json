@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "NODE_OPTIONS='--openssl-legacy-provider' next dev",
-    "build": "pnpm generate-sitemap && pnpm generate-rss && pnpm build:static",
+    "build": "pnpm generate-sitemap && pnpm generate-rss && pnpm build:static && pnpm generate-redirects",
     "build:static": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/build-static-site.ts",
     "start": "next start",
     "lint": "biome lint .",
@@ -20,6 +20,7 @@
     "publish-episode": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/publish-episode.ts",
     "upload-audio-to-r2": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/upload-audio-to-r2.ts",
     "generate-sitemap": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-sitemap.ts",
+    "generate-redirects": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-redirects.ts",
     "generate-rss": "ts-node --compiler-options \"{ \\\"module\\\": \\\"commonjs\\\"}\" scripts/generate-rss.ts",
     "test": "vitest run",
     "test:watch": "vitest"

@@ -5,7 +5,8 @@ import MarkdownIt from 'markdown-it'
 import { url } from './constants'
 
 const contentFolder = 'content'
-const md = new MarkdownIt()
+// Show notes are authored in this repo and embed <img>/<a> tags inline
+const md = new MarkdownIt({ html: true })
 
 interface FrontMatter {
   title: string

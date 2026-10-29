@@ -36,6 +36,9 @@ export async function generateMetadata({
   return {
     title,
     description,
+    // Embed-only player for twitter:player cards; the episode page is the
+    // indexable version of this content.
+    robots: { index: false, follow: true },
     openGraph: {
       title,
       description,

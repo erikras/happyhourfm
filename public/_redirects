@@ -1,1 +1,4 @@
 /media/*.mp3 https://media.happyhour.fm/:splat.mp3 302
+/feed /rss.xml 301
+/feed/ /rss.xml 301
+/feed.xml /rss.xml 301
