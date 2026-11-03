@@ -1,0 +1,9 @@
+# Static export. The Next.js runtime tries to load next/dist/telemetry/ci-info,
+# which Next 16 does not ship. Skip it and publish the exported site.
+[build]
+  command = "pnpm install && pnpm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
