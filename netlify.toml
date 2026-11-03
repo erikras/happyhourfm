@@ -1,0 +1,11 @@
+# Static export. The site still has Essential Next.js runtime v3.9.2 installed
+# in the Netlify UI. That version crashes on Next 16 while resolving
+# next/dist/telemetry/ci-info. Tell it not to run, and publish `out`.
+[build]
+  command = "pnpm install && pnpm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NEXT_PLUGIN_FORCE_RUN = "false"
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"

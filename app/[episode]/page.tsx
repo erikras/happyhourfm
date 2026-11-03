@@ -5,6 +5,7 @@ import DownloadBar from '@/components/DownloadBar';
 import EpisodeNavigation from '@/components/EpisodeNavigation';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import JsonLd from '@/components/JsonLd';
 import Listen from '@/components/Listen';
 import ShowNotes from '@/components/ShowNotes';
 import {
@@ -13,6 +14,15 @@ import {
   getNextEpisode,
   getPreviousEpisode,
 } from '@/lib/episodes';
+import { getMediaMetadata, loadMediaManifest } from '@/util/mediaManifest';
+import {
+  absoluteUrl,
+  episodeUrl,
+  podcastEpisodeJsonLd,
+  rssAlternate,
+  toIsoDate,
+  truncateDescription,
+} from '@/util/seo';
 
 interface EpisodePageProps {
   params: Promise<{ episode: string }>;
@@ -38,18 +48,28 @@ export async function generateMetadata({
   }
 
   const title = `Happy Hour – ${ep.frontmatter.title}`;
-  const description = ep.frontmatter.description;
+  const description = truncateDescription(ep.frontmatter.description);
   const imageUrl = ep.frontmatter.art
     ? `https://happyhour.fm/${ep.frontmatter.art}`
     : 'https://happyhour.fm/art.jpg';
   const playerUrl = `https://happyhour.fm/player/${ep.frontmatter.slug}`;
+  const canonicalUrl = episodeUrl(episode);
 
   return {
     title,
     description,
+    alternates: {
+      canonical: canonicalUrl,
+      types: rssAlternate,
+    },
     openGraph: {
       title,
       description,
+      url: canonicalUrl,
+      publishedTime: toIsoDate(ep.frontmatter.date),
+      audio: [
+        { url: absoluteUrl(ep.frontmatter.mp3URL), type: 'audio/mpeg' },
+      ],
       images: [
         {
           url: imageUrl,
@@ -92,8 +112,20 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
     getPreviousEpisode(episode),
   ]);
 
+  const { durationSeconds } = getMediaMetadata(
+    loadMediaManifest(),
+    ep.frontmatter.mp3URL
+  );
+
   return (
     <div className="space-y-8">
+      <JsonLd
+        data={podcastEpisodeJsonLd({
+          ...ep.frontmatter,
+          slug: episode,
+          durationSeconds,
+        })}
+      />
       <Header episode={ep} />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <div className="lg:col-span-1">

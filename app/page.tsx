@@ -3,16 +3,23 @@ import { Suspense } from 'react';
 import EpisodeListWithSearch from '../components/EpisodeListWithSearch';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import JsonLd from '../components/JsonLd';
 import Listen from '../components/Listen';
 import { getEpisodes } from '../lib/episodes';
+import { podcastSeriesJsonLd, rssAlternate, siteUrl } from '../util/seo';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Happy Hour with Dennis and Erik',
     description: 'A podcast about life, comedy, and everything in between',
+    alternates: {
+      canonical: siteUrl,
+      types: rssAlternate,
+    },
     openGraph: {
       title: 'Happy Hour with Dennis and Erik',
       description: 'A podcast about life, comedy, and everything in between',
+      url: siteUrl,
       images: [
         {
           url: 'https://happyhour.fm/art.jpg',
@@ -46,6 +53,7 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-8">
+      <JsonLd data={podcastSeriesJsonLd()} />
       <Header />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <div className="lg:col-span-1">
