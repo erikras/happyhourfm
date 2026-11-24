@@ -24,7 +24,6 @@ export interface Episode {
   }
   body: string
   mp3path?: string
-  filepath?: string
 }
 
 interface FrontMatter {
@@ -44,7 +43,6 @@ interface FrontMatter {
 interface Content {
   frontmatter: FrontMatter
   body: string
-  filepath: string
 }
 
 function grabContents(filepaths: string[], baseUrl: string): Content[] {
@@ -55,7 +53,8 @@ function grabContents(filepaths: string[], baseUrl: string): Content[] {
       const content = fs.readFileSync(filepath, 'utf-8')
       const { attributes, body } = frontMatter<FrontMatter>(content)
 
-      // Generate slug from filename
+      // Keep the filename only. The absolute path must not stay on the episode:
+      // the homepage serializes these objects, and a leading slash is a URL.
       const slug = path.basename(filepath, '.md')
 
       // Convert body to HTML
@@ -67,7 +66,6 @@ function grabContents(filepaths: string[], baseUrl: string): Content[] {
           slug,
         },
         body: htmlBody,
-        filepath,
       })
     } catch (error) {
       console.warn(`Error processing ${filepath}:`, error)
@@ -83,22 +81,14 @@ export async function getEpisodes(): Promise<{ episodes: Episode[], totalEpisode
     path.join(process.cwd(), contentFolder, file)
   )
 
-  const contents = grabContents(filepaths, url) as any[]
+  const contents = grabContents(filepaths, url)
 
-  // Ensure dates are strings and add slug from filename
-  const episodes: Episode[] = contents.map((content, idx) => {
-    // Get the filename from the filepath property if available, else fallback to filenames[idx]
-    let slug = ''
-    if (content.filepath) {
-      slug = path.basename(content.filepath, '.md')
-    } else if (filepaths[idx]) {
-      slug = path.basename(filepaths[idx], '.md')
-    }
+  // Ensure dates are strings. Slug is already the filename, not the path.
+  const episodes: Episode[] = contents.map((content) => {
     return {
-      ...content,
+      body: content.body,
       frontmatter: {
         ...content.frontmatter,
-        slug,
         date: typeof content.frontmatter.date === 'string'
           ? content.frontmatter.date
           : new Date(content.frontmatter.date).toISOString().split('T')[0]
