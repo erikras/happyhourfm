@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { getEpisodes } from '../lib/episodes';
 import {
   isoDuration,
   podcastEpisodeJsonLd,
@@ -48,8 +49,24 @@ describe('buildEpisodeRedirects', () => {
       '/episode/7 /007 301',
       '/episode/007 /007 301',
       '/7 /007 301',
+      '/home/runner/work/happyhourfm/happyhourfm/content/007.md /007 301',
       '/episode/288 /288 301',
+      '/home/runner/work/happyhourfm/happyhourfm/content/288.md /288 301',
     ]);
+  });
+});
+
+describe('episode payload', () => {
+  it('does not serialize absolute content paths into episode data', async () => {
+    const { episodes } = await getEpisodes();
+    const serialized = JSON.stringify(episodes);
+
+    expect(serialized).not.toContain('/home/runner');
+    expect(serialized).not.toContain(process.cwd());
+    expect(serialized).not.toContain('"filepath"');
+    expect(episodes.some((episode) => episode.frontmatter.slug === '192')).toBe(
+      true
+    );
   });
 });
 
